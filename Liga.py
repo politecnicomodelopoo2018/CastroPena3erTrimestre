@@ -8,23 +8,32 @@ class Liga(object):
     pais = None
     campeon = None
     terminada = None
+    anio = None
 
 
-    def crearLiga(self, nom, country, champs, term):
+    def crearLiga(self, nom, country, champs, term, year):
+
 
         self.nombre=nom
         self.pais=country
-        self.campeon=champs
+
+        if champs is None:
+            self.campeon= "Null"
+        else:
+            self.campeon= champs
+
         self.terminada=term
+        self.anio = year
+
 
     def setLiga(self):
 
-        cursor=BD().run("Insert into Liga (idLiga, Nombre,Pais, Campeon, Terminada) values(null, '"+self.nombre+"','"+self.pais+"', '"+str(self.campeon)+"', '"+self.terminada+"');")
+        cursor=BD().run("Insert into Liga (idLiga, Nombre,Pais, Campeon, Terminada, Año) values(null, '"+self.nombre+"','"+self.pais+"', '"+str(self.campeon)+"', '"+self.terminada+"', '"+str(self.anio)+"');")
         self.id = cursor.lastrowid
 
     def updateLiga(self):
 
-        BD().run("update Liga Set Nombre = '"+self.nombre+"', Pais = '"+self.pais+"', Campeon ='"+str(self.campeon)+"', Terminada='"+self.terminada+"' where idLiga = '"+str(self.id)+"';")
+        BD().run("update Liga Set Nombre = '"+self.nombre+"', Pais = '"+self.pais+"', Campeon ='"+str(self.campeon)+"', Terminada='"+self.terminada+"', Año = '"+str(self.anio)+"' where idLiga = '"+str(self.id)+"';")
 
 
     def deleteLiga(self):
@@ -43,8 +52,7 @@ class Liga(object):
 
         else:
 
-            print("No se puede eliminar la Liga tiene Equipos Asociados a ella")
-
+            return False
 
 
     @staticmethod
@@ -59,7 +67,7 @@ class Liga(object):
         UnLiga.pais = lista[0]["Pais"]
         UnLiga.terminada = lista[0]["Terminada"]
         UnLiga.campeon = lista[0]["idEquipo_Campeon"]
-
+        UnLiga.anio = lista[0]["Año"]
 
         return UnLiga
 

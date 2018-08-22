@@ -40,7 +40,7 @@ class Copa(object):
 
         else:
 
-            print("No se puede eliminar la Liga tiene Equipos Asociados a ella")
+            return False
 
     @staticmethod
     def getCopa(unID):
@@ -58,7 +58,7 @@ class Copa(object):
         return UnCopa
 
     @staticmethod
-    def getLigas():
+    def getCopas():
 
         d = BD().run("Select * from Copa;")
 
