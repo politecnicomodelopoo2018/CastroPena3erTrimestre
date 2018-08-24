@@ -1,4 +1,4 @@
-import BD
+from BD import *
 
 class Usuario(object):
 
@@ -59,7 +59,7 @@ class Usuario(object):
         return UnUsuario
 
     @staticmethod
-    def getUsuario():
+    def getUsuarios():
 
         d = BD().run("Select * from Usuario;")
 

@@ -1,4 +1,4 @@
-import BD
+from BD import *
 
 class Partido(object):
 
@@ -27,6 +27,7 @@ class Partido(object):
 
             self.Liga = "Null"
             self.Copa = cup
+
         elif cup is None and ligue is not None:
 
             self.Liga = ligue
@@ -38,17 +39,59 @@ class Partido(object):
 
     def setPartido(self):
 
-        cursor = BD().run("insert into Partido (idPartido, idEquipo1, idEquipo2, GolesEquipo1, GolesEquipo2, Liga_idLiga, Copa_idCopa) values (null, '"+str(self.Equipo1)+"','"+str(self.Equipo2)+"', '"+str(self.GolesEquipo1)+"','"+str(self.GolesEquipo2)+"','"+str(self.Liga)+"', '"+str(self.Copa)+"');")
+        if self.Copa is None and self.Liga is None:
+
+            esLiga = "null"
+            esCopa = "null"
+
+            self.Liga = esLiga
+            self.Copa = esCopa
+
+        elif self.Copa is None:
+
+            esCopa = "null"
+
+            self.Copa = esCopa
+
+        elif self.Liga is None:
+
+            esLiga = "null"
+
+            self.Liga = esLiga
+
+
+
+        cursor = BD().run("insert into Partido (idPartidos, idEquipo1, idEquipo2, GolesEquipo1, GolesEquipo2, Liga_idLiga, Copa_idCopa, NroFecha) values (null, '"+str(self.Equipo1)+"','"+str(self.Equipo2)+"', '"+str(self.GolesEquipo1)+"','"+str(self.GolesEquipo2)+"',"+str(self.Liga)+", "+str(self.Copa)+",null);")
 
         self.id = cursor.lastrowid
 
     def updatePartido(self):
 
-        BD().run("update Partido set idEquipo1 = '"+str(self.Equipo1)+"',idEquipo2 = '"+str(self.Equipo2)+"', GolesEquipo1 = '"+str(self.GolesEquipo1)+"',GolesEquipo2 = '"+str(self.GolesEquipo2)+"', Copa_idCopa = '"+str(self.Copa)+"', Liga_idLiga = '"+str(self.Liga)+"' where idPartido = '"+str(self.id)+"';")
+        if self.Copa is None and self.Liga is None:
+
+            esLiga = "null"
+            esCopa = "null"
+
+            self.Liga = esLiga
+            self.Copa = esCopa
+
+        elif self.Copa is None:
+
+            esCopa = "null"
+
+            self.Copa = esCopa
+
+        elif self.Liga is None:
+
+            esLiga = "null"
+
+            self.Liga = esLiga
+
+        BD().run("update Partido set idEquipo1 = '"+str(self.Equipo1)+"',idEquipo2 = '"+str(self.Equipo2)+"', GolesEquipo1 = '"+str(self.GolesEquipo1)+"',GolesEquipo2 = '"+str(self.GolesEquipo2)+"', Copa_idCopa = "+str(self.Copa)+", Liga_idLiga = "+str(self.Liga)+" where idPartidos = '"+str(self.id)+"';")
 
     def deletePartido(self):
 
-        contadorProde = BD().run("select count(*) from Prode where Partido_idPartido = '"+self.id+"';")
+        contadorProde = BD().run("select count(*) from Prode where Partido_idPartidos = '"+str(self.id)+"';")
 
         cont1 = None
 
@@ -58,7 +101,7 @@ class Partido(object):
 
         if cont1 == 0:
 
-            BD().run("delete from Partido where idPartido = '"+str(self.id)+"';")
+            BD().run("delete from Partido where idPartidos = '"+str(self.id)+"';")
 
         else:
 
@@ -67,11 +110,11 @@ class Partido(object):
     @staticmethod
     def getPartido(unID):
 
-        d = BD().run("Select * from Partido where idPartido = '" + str(unID) + "';")
+        d = BD().run("Select * from Partido where idPartidos = '" + str(unID) + "';")
         lista = d.fetchall()
         UnPartido = Partido()
 
-        UnPartido.id = lista[0]["idPartido"]
+        UnPartido.id = lista[0]["idPartidos"]
         UnPartido.Equipo1 = lista[0]["idEquipo1"]
         UnPartido.Equipo2 = lista[0]["idEquipo2"]
         UnPartido.Liga = lista[0]["Liga_idLiga"]
