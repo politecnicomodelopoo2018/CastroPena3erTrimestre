@@ -5,6 +5,7 @@ from Equipo import *
 from Usuario import *
 from Prode import *
 from BD import *
+from flask import *
 
 import pymysql
 
@@ -12,68 +13,101 @@ import pymysql
 
 BD().setConnection("127.0.0.1","root","alumno","mydb", True, "utf8")
 
+app = Flask(__name__, static_url_path='/static')
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 
 Ligue = Liga()
 Equipe1 = Equipo()
 Equipe2 = Equipo()
 Match1 = Partido()
 
+@app.route('/')
+def Index():
+    return render_template("/menu.html")
 
-#Ligue.crearLiga("SUPERLIGA", "Argentina", None, False, 2018)
+@app.route('/laLiga')
+def laLiga():
+    b = BD().run("select * from Equipo where Liga_idLiga = 1;")
+    lista = b.fetchall()
 
-#Ligue.setLiga()
+    return render_template("/laLiga.html", equiposLaLiga = lista)
 
-#Equipe1.crearEquipo("Argentinos Juniors", 1, None)
-#Equipe2.crearEquipo("Boca Juniors", 1, None)
+@app.route('/superliga')
+def Superliga():
+
+    return render_template("/superliga.html")
+
+@app.route('/libertadores')
+def Libertadores():
+    return render_template("/libertadores.html")
+
+@app.route('/uefa')
+def Uefa():
+    return render_template("/uefa.html")
 
 
-#Equipe1.setEquipo()
-#Equipe2.setEquipo()
 
-#Match1.crearPartido(1, 2, 2, 1, 1, None)
 
-#Match1.setPartido()
+# Ligue.crearLiga("La Liga Santander", "España", None, False, 2018)
 
-#Cup=Copa()
+# Ligue.setLiga()
 
-#Cup=Copa.getCopa(2)
+#Equipe1.crearEquipo("Atletico de Madrid", 1, None)
+# Equipe2.crearEquipo("Boca Juniors", 1, None)
 
-#Cup.crearCopa("UEFITA CACA", "UEfafafa", 1, "Terminada")
-
-#Cup.updateCopa()
-
-#Cup.crearCopa("UEFA CAQUITA", "UEFA", None, "Final")
-
-#Cup.setCopa()
-
-#User = Usuario()
-
-#User.crearUsuario("Franckius", "unacontraseñafacil", "francopenaaaaaaaaaaaj2000@yahoo.com", 1)
-
-#User.setUsuario()
-
-#Prode = Prode()
-
-#Prode.crearProde(1,1,3,1)
-
-#Prode.setProde()
-
-#Equipe1.crearEquipo("Futbol Club Barcelona", 3, 2)
 
 #Equipe1.setEquipo()
+# Equipe2.setEquipo()
 
-#Equipe1 = Equipo.getEquipo(2)
+# Match1.crearPartido(1, 2, 2, 1, 1, None)
 
-#Equipe1.crearEquipo("Real Mandril", 3, 2)
+# Match1.setPartido()
 
-#Equipe1.updateEquipo()
+# Cup=Copa()
 
-#Match1.crearPartido(2,4,0,7,3,None)
+# Cup=Copa.getCopa(2)
 
-#Match1.setPartido()
+# Cup.crearCopa("UEFITA CACA", "UEfafafa", 1, "Terminada")
 
-#Match1= Partido.getPartido(3)
+# Cup.updateCopa()
 
-#Match1.deletePartido()
+# Cup.crearCopa("UEFA CAQUITA", "UEFA", None, "Final")
 
-print(Prode.getProdes())
+# Cup.setCopa()
+
+# User = Usuario()
+
+# User.crearUsuario("Franckius", "unacontraseñafacil", "francopenaaaaaaaaaaaj2000@yahoo.com", 1)
+
+# User.setUsuario()
+
+# Prode = Prode()
+
+# Prode.crearProde(1,1,3,1)
+
+# Prode.setProde()
+
+# Equipe1.crearEquipo("Futbol Club Barcelona", 3, 2)
+
+# Equipe1.setEquipo()
+
+# Equipe1 = Equipo.getEquipo(2)
+
+# Equipe1.crearEquipo("Real Mandril", 3, 2)
+
+# Equipe1.updateEquipo()
+
+# Match1.crearPartido(2,4,0,7,3,None)
+
+# Match1.setPartido()
+
+# Match1= Partido.getPartido(3)
+
+# Match1.deletePartido()
+
+#print(Prode.getProdes())
+
+
+if __name__ == '__main__':  # para actualizar automaticamente la pagina sin tener que cerrarla
+    app.run(debug=True) # para correr la pagina se puede hacer en este caso "python3 PruebaFlask.py" en la terminal
