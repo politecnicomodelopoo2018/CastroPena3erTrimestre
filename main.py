@@ -28,7 +28,7 @@ def Index():
 
 @app.route('/laLiga')
 def laLiga():
-    b = BD().run("select * from Equipo where Liga_idLiga = 1;")
+    b = BD().run("select * from Equipo join DatosLiga on DatosLiga.Equipo_idEquipo = Equipo.idEquipo where DatosLiga.Liga_idLiga = 1 order by Puntos DESC;")
     lista = b.fetchall()
 
     return render_template("/laLiga.html", equiposLaLiga = lista)
@@ -50,14 +50,14 @@ def Uefa():
 
 
 # Ligue.crearLiga("La Liga Santander", "España", None, False, 2018)
-
+#
 # Ligue.setLiga()
-
-#Equipe1.crearEquipo("Atletico de Madrid", 1, None)
+#
+# Equipe1.crearEquipo("Atletico de Madrid", 1, None)
 # Equipe2.crearEquipo("Boca Juniors", 1, None)
 
 
-#Equipe1.setEquipo()
+# Equipe1.setEquipo()
 # Equipe2.setEquipo()
 
 # Match1.crearPartido(1, 2, 2, 1, 1, None)

@@ -5,11 +5,45 @@
 </head>
 <body>
 
-TABLA
-{% for item in equiposLaLiga %}
-	{{ print(item.nombre) }}
+<h3>
+	LA LIGA SANTANDER
+
+</h3>
+
+<table>
+<tr>
+
+  	<td><strong>Equipos</strong></td>
+  	<td><strong>Puntos</strong></td>
+	<td><strong>PJ</strong></td>
+	<td><strong>PG</strong></td>
+	<td><strong>PP</strong></td>
+	<td><strong>PE</strong></td>
+	<td><strong>GF</strong></td>
+	<td><strong>GC</strong></td>
+	<td><strong>DG</strong></td>
+
+</tr>
+
+{% for item in equiposLaLiga: %}
+
+
+<tr>
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+</tr>
+
+
 {% endfor %}
 
-
+</table>
 </body>
 </html>
