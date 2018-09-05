@@ -48,6 +48,8 @@ class Copa(object):
 
             return False
 
+
+
     @staticmethod
     def getCopa(unID):
 
