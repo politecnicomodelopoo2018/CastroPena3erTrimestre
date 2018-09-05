@@ -36,7 +36,11 @@ def laLiga():
 @app.route('/superliga')
 def Superliga():
 
-    return render_template("/superliga.html")
+    b = BD().run("select * from Equipo join DatosLiga on DatosLiga.Equipo_idEquipo = Equipo.idEquipo where DatosLiga.Liga_idLiga = 2 order by Puntos DESC")
+
+    lista = b.fetchall()
+
+    return render_template("/superliga.html", equiposSuperliga = lista)
 
 @app.route('/libertadores')
 def Libertadores():
