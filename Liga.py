@@ -25,10 +25,12 @@ class Liga(object):
 
             self.campeon= champs
 
-        if term is False:
-            self.terminada = "No terminada"
+        if term == "no":
 
-        elif term is True:
+            self.terminada = "null"
+
+        elif term == "si":
+
            self.terminada = "Terminada"
 
 
@@ -43,12 +45,17 @@ class Liga(object):
 
             ultimoCampeon=self.campeon
 
-        cursor=BD().run("Insert into Liga (idLiga, Nombre,Pais, idEquipo_Campeon, Terminada, Año) values(null, '"+self.nombre+"','"+self.pais+"', "+str(ultimoCampeon)+", '"+str(self.terminada)+"', '"+str(self.anio)+"');")
+
+        cursor=BD().run("Insert into Liga (idLiga, Nombre,Pais, idEquipo_Campeon, Terminada, Año) values(null, '"+self.nombre+"','"+self.pais+"', "+str(ultimoCampeon)+", "+str(self.terminada)+" , '"+str(self.anio)+"');")
         self.id = cursor.lastrowid
 
     def updateLiga(self):
 
-        BD().run("update Liga Set Nombre = '"+self.nombre+"', Pais = '"+self.pais+"', idEquipo_Campeon ='"+str(self.campeon)+"', Terminada='"+self.terminada+"', Año = '"+str(self.anio)+"' where idLiga = '"+str(self.id)+"';")
+        if self.campeon is None:
+
+            self.campeon="null"
+
+        BD().run("update Liga Set Nombre = '"+self.nombre+"', Pais = '"+self.pais+"', idEquipo_Campeon = "+str(self.campeon)+", Terminada= "+str(self.terminada)+", Año = '"+str(self.anio)+"' where idLiga = '"+str(self.id)+"';")
 
 
     def deleteLiga(self):
@@ -64,6 +71,8 @@ class Liga(object):
         if cont1 == 0:
 
             BD().run("delete from Liga where idLiga = '"+str(self.id)+"';")
+
+            return True
 
         else:
 

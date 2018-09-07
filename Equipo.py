@@ -29,7 +29,12 @@ class Equipo(object):
 
     def updateEquipo(self):
 
-        BD().run("update Equipo set Nombre = '"+self.nombre+"', Copa_idCopa = '"+str(self.copa)+"', Liga_idLiga = '"+str(self.liga)+"' where idEquipo = '"+str(self.id)+"';")
+        if self.copa is None:
+
+            self.copa = "null"
+
+
+        BD().run("update Equipo set Nombre = '"+self.nombre+"', Copa_idCopa = "+str(self.copa)+", Liga_idLiga = "+str(self.liga)+" where idEquipo = '"+str(self.id)+"';")
 
 
     def deleteEquipo(self):
@@ -52,6 +57,8 @@ class Equipo(object):
         if cont1 == 0 and cont2 == 0:
 
             BD().run("delete from Equipo Where idEquipo = '"+str(self.id)+"';")
+
+            return True
 
         else:
 
