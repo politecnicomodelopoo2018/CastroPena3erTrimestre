@@ -111,10 +111,10 @@ def Uefa():
 
 
 if __name__ == '__main__':  # para actualizar automaticamente la pagina sin tener que cerrarla
-    app.run(debug=True) # para correr la pagina se puede hacer en este caso "python3 PruebaFlask.py" en la terminal
+   app.run(debug=True) # para correr la pagina se puede hacer en este caso "python3 PruebaFlask.py" en la terminal
 
 
-opcion = str(input("1-Liga\n2-Copa\n3-Equipo\n5-Salir\nOPCION: "))
+opcion = str(input("1-Liga\n2-Copa\n3-Equipo\n4-Partido\n5-Salir\nOPCION: "))
 
 Ligue = Liga()
 Cope = Copa()
@@ -240,7 +240,7 @@ while opcion != "5":
 
         elif opcionUno == "4":
 
-            opcion = input("1-Liga\n2-Copa\n3-Equipo\n5-Salir\nOPCION: ")
+            opcion = input("1-Liga\n2-Copa\n3-Equipo\n4-Partido\n5-Salir\nOPCION: ")
 
         else:
 
@@ -252,7 +252,8 @@ while opcion != "5":
         opcionDos = str(input("1-ins\n"
                                "2-del\n"
                                "3-upt\n"
-                               "4-Volver"
+                               "4-Equipos a grupos\n"
+                               "5-Volver\n"
                                "OPCION: "))
 
         if opcionDos == "1":
@@ -273,14 +274,16 @@ while opcion != "5":
 
                     print(Equipo.getEquipos())
 
-                    idEquipe = int(input("El equipo ingresado no pertenece a esa liga, vuelva a intentar: "))
+                    idEquipe = int(input("El equipo ingresado no pertenece a esa copa, vuelva a intentar: "))
 
                     Equipe = Equipo.getEquipo(idEquipe)
 
             campCopa = Equipe.copa
 
+            cantGrup = int(input("Escriba la cantidad de grupos de la copa: "))
 
-            Cope.crearCopa(nomCopa, OrgCopa, campCopa, insCopa)
+
+            Cope.crearCopa(nomCopa, OrgCopa, campCopa, insCopa, cantGrup)
 
             Cope.setCopa()
 
@@ -326,14 +329,36 @@ while opcion != "5":
 
             campCopa = Equipe.copa
 
-            Cope.crearCopa(nomCopa, OrgCopa, campCopa , insCopa)
+            cantGrup = int(input("Escriba la cantidad de grupos de la copa: "))
+
+            Cope.crearCopa(nomCopa, OrgCopa, campCopa , insCopa, cantGrup)
 
             Cope.updateCopa()
 
         elif opcionDos == "4":
 
-            opcion = input("1-Liga\n2-Copa\n3-Equipo\n5-Salir\nOPCION: ")
+            print(Copa.getCopas())
 
+            idCopaGr = input("Escriba el id de copa para establecer los grupos: ")
+
+            Cope = Copa.getCopa(idCopaGr)
+
+            Equipos = Equipo.getEquipos()
+
+            for eqs in Equipos:
+
+                if eqs["copa"] == idCopaGr:
+
+                    grupoletra = input("Ingrese el Grupo del equipo "+eqs.nombre+" de la copa "+Cope.nombre+"")
+
+
+
+
+
+
+        elif opcionDos == "5":
+
+            opcion = input("1-Liga\n2-Copa\n3-Equipo\n4-Partido\n5-Salir\nOPCION: ")
 
         else:
 
@@ -345,7 +370,7 @@ while opcion != "5":
         opcionTres = str(input("1-ins\n"
                           "2-del\n"
                           "3-upt\n"
-                          "4-Volver"
+                          "4-Volver\n"
                           "OPCION: "))
 
         if opcionTres == "1":
@@ -371,7 +396,10 @@ while opcion != "5":
 
                 idcopa = None
 
-            Equipe.crearEquipo(nomEquipo, idliga, idcopa)
+
+            grupo = "null"
+
+            Equipe.crearEquipo(nomEquipo, idliga, idcopa, grupo)
 
             Equipe.setEquipo()
 
@@ -412,18 +440,23 @@ while opcion != "5":
 
                 idcopa = int(input("Escriba el nro id de la copa a la que pertenece el equipo:"))
 
-            Equipe.crearEquipo(nomEquipo, idliga, idcopa)
+            if Equipe.grupo != "null":
+
+                grupoLet = input("Escriba la letra de grupo de la copa: ")
+
+
+
+            Equipe.crearEquipo(nomEquipo, idliga, idcopa, grupoLet)
 
             Equipe.updateEquipo()
 
         elif opcionTres == "4":
 
-            opcion = input("1-Liga\n2-Copa\n3-Equipo\n5-Salir\nOPCION: ")
+            opcion = input("1-Liga\n2-Copa\n3-Equipo\n4-Partido\n5-Salir\nOPCION: ")
 
         else:
 
             print("se oprimio una opcion incorrecta, vuelva a intentar")
-
 
 
     elif opcion == "4":
@@ -480,21 +513,76 @@ while opcion != "5":
 
             Match.setPartido()
 
-        # elif opcionCuatro == 2:
-        #
-        #     # deletear
-        #
-        # elif opcionCuatro == 3:
-        #
-        #     # updatear
-        #
-        # else:
-        #
-        #     print("se oprimio una opcion correcta, volviendo al menu")
-        #
-        # opcion = input("1-Liga\n2-Copa\n3-Equipo\n8-Salir\nOPCION: ")
+        elif opcionCuatro == "2":
 
-    # elif opcion == 5:
+            print(Partido.getPartidos())
+
+            idPartidoDel = int(input("Escriba el id del partido que desea eliminar: "))
+
+            Match = Partido.getPartido(idPartidoDel)
+
+            Match.deletePartido()
+
+        elif opcionCuatro == "3":
+
+            print(Partido.getPartidos())
+
+            idPartidoUp = int(input("Escriba el id del partido que desea modificar: "))
+
+            Match = Partido.getPartido(idPartidoUp)
+
+            eq1 = input("Escriba el id del 1er equipo: ")
+
+            eq2 = input("Escriba el id del 2do equipo: ")
+
+            while eq1 == eq2:
+
+                print("los id de los equipos no se pueden repetir, vuelva a intentar: ")
+
+                eq1 = input("Escriba el id del 1er equipo: ")
+
+                eq2 = input("Escriba el id del 2do equipo: ")
+
+            Equipe1 = Equipo.getEquipo(eq1)
+            Equipe2 = Equipo.getEquipo(eq2)
+
+            goalsEq1 = input("Cuantos goles metio " + Equipe1.nombre + "?: ")
+            goalsEq2 = input("Cuantos goles metio " + Equipe2.nombre + "?: ")
+
+            aQuePertenece = input("Partido es de Liga, Copa o Amistoso?:")
+
+            if aQuePertenece == "Liga":
+
+                print(Liga.getLigas())
+
+                idliga = int(input("Ingrese el idLiga a la que pertenece el partido: "))
+
+                Match.crearPartido(eq1, eq2, goalsEq1, goalsEq2, idliga, None)
+
+            elif aQuePertenece == "Copa":
+
+                print(Copa.getCopas())
+
+                idcopa = input("Ingrese el idCopa a la que pertenece el partido: ")
+
+                Match.crearPartido(eq1, eq2, goalsEq1, goalsEq2, None, idcopa)
+
+            elif aQuePertenece == "Amistoso":
+
+                Match.crearPartido(eq1, eq2, goalsEq1, goalsEq2, None, None)
+
+            Match.updatePartido()
+
+
+
+        elif opcionCuatro == "4":
+
+            opcion = input("1-Liga\n2-Copa\n3-Equipo\n4-Partido\n5-Salir\nOPCION: ")
+
+        else:
+
+            print("se oprimio una opcion incorrecta, vuelva a intentar")
+    #
 
     #     opcionCinco = input("1-ins"
     #                       "2-del"

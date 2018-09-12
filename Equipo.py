@@ -6,13 +6,16 @@ class Equipo(object):
     nombre = None
     liga = None
     copa = None
+    grupo = None
 
 
-    def crearEquipo(self, nom, idL, idC):
+
+    def crearEquipo(self, nom, idL, idC, letraGr):
 
         self.nombre = nom
         self.liga = idL
         self.copa = idC
+        self.grupo = letraGr
 
     def setEquipo(self):
 
@@ -22,7 +25,7 @@ class Equipo(object):
 
             participarCopa = self.copa
 
-        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"');")
+        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', '"+self.grupo+"');")
 
         self.id = cursor.lastrowid
 
@@ -34,8 +37,7 @@ class Equipo(object):
             self.copa = "null"
 
 
-        BD().run("update Equipo set Nombre = '"+self.nombre+"', Copa_idCopa = "+str(self.copa)+", Liga_idLiga = "+str(self.liga)+" where idEquipo = '"+str(self.id)+"';")
-
+        BD().run("update Equipo set Nombre = '"+self.nombre+"', Copa_idCopa = "+str(self.copa)+", Liga_idLiga = "+str(self.liga)+", Grupo = '"+self.grupo+"' where idEquipo = '"+str(self.id)+"';")
 
     def deleteEquipo(self):
 
@@ -75,6 +77,7 @@ class Equipo(object):
         UnEquipo.nombre = lista[0]["Nombre"]
         UnEquipo.liga = lista[0]["Liga_idLiga"]
         UnEquipo.copa = lista[0]["Copa_idCopa"]
+        UnEquipo.grupo = lista[0]["Grupo"]
 
         return UnEquipo
 

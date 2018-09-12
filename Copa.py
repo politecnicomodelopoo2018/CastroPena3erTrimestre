@@ -7,14 +7,16 @@ class Copa(object):
     organizador = None
     campeon = None
     instancia = None
+    cantidadGrupos = None
 
 
-    def crearCopa(self,nom,org,cam,ins):
+    def crearCopa(self,nom,org,cam,ins, cantGrup):
 
         self.nombre = nom
         self.organizador=org
         self.campeon=cam
         self.instancia=ins
+        self.CantidadGrupos = cantGrup
 
     def setCopa(self):
 
@@ -24,7 +26,7 @@ class Copa(object):
 
             hayCampeon = self.campeon
 
-        cursor = BD().run("insert into Copa(idCopa, Nombre, Organizador, idEquipo_Campeon, Instancia) values(null, '"+self.nombre+"', '"+self.organizador+"', "+hayCampeon+", '"+self.instancia+"');")
+        cursor = BD().run("insert into Copa(idCopa, Nombre, Organizador, idEquipo_Campeon, Instancia, Cant_Grupos) values(null, '"+self.nombre+"', '"+self.organizador+"', "+hayCampeon+", '"+self.instancia+"', '"+str(self.CantidadGrupos)+"');")
         self.id = cursor.lastrowid
 
     def updateCopa(self):
@@ -34,7 +36,7 @@ class Copa(object):
             self.campeon = "null"
 
 
-        BD().run("update Copa set Nombre = '"+self.nombre+"', Organizador = '"+self.organizador+"', idEquipo_Campeon = "+str(self.campeon)+", Instancia = '"+self.instancia+"' where idCopa = '"+str(self.id)+"';")
+        BD().run("update Copa set Nombre = '"+self.nombre+"', Organizador = '"+self.organizador+"', idEquipo_Campeon = "+str(self.campeon)+", Instancia = '"+self.instancia+"', Cant_Grupos = '"+str(self.CantidadGrupos)+"' where idCopa = '"+str(self.id)+"';")
 
     def deleteCopa(self):
 
@@ -67,6 +69,8 @@ class Copa(object):
         UnCopa.organizador = lista[0]["Organizador"]
         UnCopa.campeon = lista[0]["idEquipo_Campeon"]
         UnCopa.instancia = lista[0]["Instancia"]
+        UnCopa.CantidadGrupos = lista[0]["Cant_Grupos"]
+
 
         return UnCopa
 
