@@ -5,8 +5,14 @@
 </head>
 <body>
 
-COPA
-LLAVE
+<h3><strong>PARTICIPANTES</strong></h3>
+
+{%for item in equiposCopaLib : %}
+
+<p>{{ item["Nombre"]}}</p>
+<br>
+
+{% endfor %}
 
 </body>
 </html>

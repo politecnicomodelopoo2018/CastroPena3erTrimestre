@@ -25,7 +25,8 @@ class Equipo(object):
 
             participarCopa = self.copa
 
-        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', '"+self.grupo+"');")
+        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', "+str(self.grupo)+");")
+
 
         self.id = cursor.lastrowid
 
@@ -36,12 +37,14 @@ class Equipo(object):
 
             self.copa = "null"
 
-
         BD().run("update Equipo set Nombre = '"+self.nombre+"', Copa_idCopa = "+str(self.copa)+", Liga_idLiga = "+str(self.liga)+", Grupo = '"+self.grupo+"' where idEquipo = '"+str(self.id)+"';")
 
     def deleteEquipo(self):
 
-        contadorPartido = BD().run("select count(*) from Partido where Equipo_idEquipo = '"+str(self.id)+"';")
+
+
+        contadorPartido = BD().run("select count(*) from Partido where idEquipo1 = '"+str(self.id)+"';")
+        contadorPartido1 = BD().run("select count(*) from Partido where idEquipo2 = '"+str(self.id)+"';")
 
         contadorHinchas = BD().run("select count(*) from Usuario where Equipo_idEquipo = '" + str(self.id) + "';")
 
@@ -52,13 +55,21 @@ class Equipo(object):
 
         cont2 = None
 
-        for item in contadorHinchas:
-
+        for item in contadorPartido1:
             cont2 = item["count(*)"]
 
-        if cont1 == 0 and cont2 == 0:
+        cont3 = None
 
+        for item in contadorHinchas:
+
+            cont3 = item["count(*)"]
+
+        if cont1 == 0 and cont2 == 0 and cont3 == 0:
+
+            BD().run("delete from DatosLiga Where Equipo_idEquipo = '" + str(self.id) + "';")
+            BD().run("delete from DatosCopa Where Equipo_idEquipo = '" + str(self.id) + "';")
             BD().run("delete from Equipo Where idEquipo = '"+str(self.id)+"';")
+
 
             return True
 
