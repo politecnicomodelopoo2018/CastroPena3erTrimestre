@@ -5,14 +5,56 @@
 </head>
 <body>
 
-<h3><strong>PARTICIPANTES</strong></h3>
+<h3><strong>GRUPOS</strong></h3>
 
-{%for item in equiposCopaLib : %}
 
-<p>{{ item["Nombre"]}}</p>
-<br>
+<table>
+
+
+
+	<tr>
+
+		<td><strong>GRUPO {{ listaA[0].Grupo }}</strong></td>
+
+	</tr>
+
+
+	<tr>
+
+		<td>Equipo</td>
+		<td>Ptos</td>
+		<td>PJ</td>
+		<td>PG</td>
+		<td>PP</td>
+		<td>PE</td>
+		<td>GF</td>
+		<td>GC</td>
+		<td>Dif</td>
+
+
+	</tr>
+
+{% for item in listaD %}
+
+	<tr>
+
+		<td> {{ item.nombre }}</td>
+	    <!--<td> {{ item["Puntos"] }}</td>-->
+		<!--<td> {{ item["PartidosJugados"] }}</td>-->
+		<!--<td> {{ item["Ganados"] }}</td>-->
+		<!--<td> {{ item["Perdidos"] }}</td>-->
+		<!--<td> {{ item["Empatados"] }}</td>-->
+		<!--<td> {{ item["GolesAFavor"] }}</td>-->
+		<!--<td> {{ item["GolesEnContra"] }}</td>-->
+
+
+	</tr>
 
 {% endfor %}
+
+
+</table>
+
 
 </body>
 </html>
