@@ -46,7 +46,7 @@ def Libertadores():
 
     lista = b.fetchall()
 
-    Equipito = Equipo()
+
 
     lista1 = []
     lista2 = []
@@ -60,6 +60,8 @@ def Libertadores():
 
     for contador in range(len(lista)):
 
+        Equipito = Equipo()
+
         Equipito.id = lista[contador]["idEquipo"]
         Equipito.nombre = lista[contador]["Nombre"]
         Equipito.liga = lista[contador]["Liga_idLiga"]
@@ -67,30 +69,30 @@ def Libertadores():
         Equipito.grupo = lista[contador]["Grupo"]
 
 
-        if Equipito.grupo == "A":
+        if Equipito.grupo == 'A':
 
             lista1.append(Equipito)
 
-        elif Equipito.grupo == "B":
+        elif Equipito.grupo == 'B':
             lista2.append(Equipito)
 
 
-        elif Equipito.grupo == "C":
+        elif Equipito.grupo == 'C':
             lista3.append(Equipito)
 
-        elif Equipito.grupo == "D":
+        elif Equipito.grupo == 'D':
             lista4.append(Equipito)
 
 
-        elif Equipito.grupo == "E":
+        elif Equipito.grupo == 'E':
             lista5.append(Equipito)
 
 
-        elif Equipito.grupo == "F":
+        elif Equipito.grupo == 'F':
             lista6.append(Equipito)
 
 
-        elif Equipito.grupo == "G":
+        elif Equipito.grupo == 'G':
             lista7.append(Equipito)
 
 
