@@ -44,9 +44,29 @@ def Superliga():
 @app.route('/libertadores')
 def Libertadores():
 
-    b = BD().run("select * from Equipo join DatosCopa on DatosCopa.Equipo_idEquipo = Equipo.idEquipo where DatosCopa.Copa_idCopa = 1 order by Puntos DESC")
+    z = BD().run("select * from Equipo join DatosCopa on DatosCopa.Equipo_idEquipo = Equipo.idEquipo where DatosCopa.Copa_idCopa = 1 order by Puntos DESC")
 
-    lista = b.fetchall()
+    grupeA = BD().run("call pito('A');")
+    grupeB = BD().run("Call pito('B');")
+    grupeC = BD().run("Call pito('C');")
+    grupeD = BD().run("Call pito('D');")
+    grupeE = BD().run("Call pito('E');")
+    grupeF = BD().run("Call pito('F');")
+    grupeG = BD().run("Call pito('G');")
+    grupeH = BD().run("Call pito('H');")
+
+    listaA = grupeA.fetchall()
+    listaB = grupeB.fetchall()
+    listaC = grupeC.fetchall()
+    listaD = grupeD.fetchall()
+    listaE = grupeE.fetchall()
+    listaF = grupeF.fetchall()
+    listaG = grupeG.fetchall()
+    listaH = grupeH.fetchall()
+
+
+
+    lista = z.fetchall()
 
 
 
@@ -63,7 +83,6 @@ def Libertadores():
     for item in lista:
 
 
-
         if item["Grupo"] == 'A':
 
             lista1.append(item)
@@ -71,7 +90,6 @@ def Libertadores():
         elif item["Grupo"] == 'B':
 
             lista2.append(item)
-
 
         elif item["Grupo"] == 'C':
             lista3.append(item)
@@ -96,7 +114,7 @@ def Libertadores():
             lista8.append(item)
 
 
-    return render_template("/libertadores.html", equiposCopaLib = lista, listaA = lista1, listaB= lista2, listaC = lista3, listaD = lista4, listaE = lista5, listaF=lista6, listaG=lista7,listaH=lista8)
+    return render_template("/libertadores.html", equiposCopaLib = lista, listaA = lista1, listaB= lista2, listaC = lista3, listaD = lista4, listaE = lista5, listaF=lista6, listaG=lista7,listaH=lista8, A = listaA, B = listaB, C = listaC, D= listaD, E = listaE, F = listaF, G = listaG, H = listaH)
 
 @app.route('/uefa')
 def Uefa():

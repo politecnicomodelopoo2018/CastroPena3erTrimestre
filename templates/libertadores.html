@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
+
+	<link rel="stylesheet" href="/static/estilos.css">
+
 <head>
 	<title>LIBERTADORES</title>
 
 	<style>
 
-		table {
+		table#grupo1 {
     		border-collapse: collapse;
-    		width: 30%;
+    		width: 45%;
+    		text-aling: left;
+		}
+
+		table#grupo2{
+    		border-collapse: collapse;
+    		width: 45%;
+    		text-aling: right;
 		}
 
 		td, th {
@@ -64,6 +74,25 @@
 
 {% for item in listaA%}
 
+	{% if item["Equipo_idEquipo"] == A[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == A[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
 	<tr>
 
 
@@ -80,7 +109,14 @@
 
 	</tr>
 
+
+	{% endif %}
+
+
+
 {%endfor%}
+
+
 
 
 
@@ -115,6 +151,25 @@
 {% for item in listaB%}
 
 
+	{% if item["Equipo_idEquipo"] == B[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == B[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
 	<tr>
 
 
@@ -132,13 +187,470 @@
 	</tr>
 
 
+	{% endif %}
+
+
+
+
+{%endfor%}
+
+
+</table >
+
+<table id = "grupo3">
+
+	<tr>
+
+		<td><strong>GRUPO C</strong></td>
+
+	</tr>
+
+
+
+
+	<tr>
+
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
+
+	</tr>
+
+
+{% for item in listaC%}
+
+
+	{% if item["Equipo_idEquipo"] == C[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == C[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
+	<tr>
+
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+
+	{% endif %}
+
+
+
+
 
 {%endfor%}
 
 
 </table>
 
+<table id = "grupo4">
 
+	<tr>
+
+		<td><strong>GRUPO D</strong></td>
+
+	</tr>
+
+
+
+
+	<tr>
+
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
+
+	</tr>
+
+
+{% for item in listaD%}
+
+
+	{% if item["Equipo_idEquipo"] == D[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == D[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
+	<tr>
+
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+
+	{% endif %}
+
+
+
+
+
+{%endfor%}
+
+
+</table>
+
+<table id = "grupo5">
+
+	<tr>
+
+		<td><strong>GRUPO E</strong></td>
+
+	</tr>
+
+
+
+
+	<tr>
+
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
+
+	</tr>
+
+
+{% for item in listaE%}
+
+
+	{% if item["Equipo_idEquipo"] == E[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == E[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
+	<tr>
+
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+
+	{% endif %}
+
+
+
+
+
+{%endfor%}
+
+
+</table>
+
+<table id = "grupo6">
+
+	<tr>
+
+		<td><strong>GRUPO F</strong></td>
+
+	</tr>
+
+
+
+
+	<tr>
+
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
+
+	</tr>
+
+
+{% for item in listaF%}
+
+
+	{% if item["Equipo_idEquipo"] == F[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == F[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
+	<tr>
+
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+
+	{% endif %}
+
+
+
+
+
+{%endfor%}
+
+
+</table>
+
+<table id = "grupo7">
+
+	<tr>
+
+		<td><strong>GRUPO G</strong></td>
+
+	</tr>
+
+
+
+
+	<tr>
+
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
+
+	</tr>
+
+
+{% for item in listaG%}
+
+
+	{% if item["Equipo_idEquipo"] == G[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == G[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
+	<tr>
+
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+
+	{% endif %}
+
+
+
+
+{%endfor%}
+
+
+</table>
+
+<table id = "grupo8">
+
+	<tr>
+
+		<td><strong>GRUPO H</strong></td>
+
+	</tr>
+
+
+
+
+	<tr>
+
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
+
+	</tr>
+
+
+{% for item in listaH%}
+
+
+	{% if item["Equipo_idEquipo"] == H[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == H[1]["Equipo_idEquipo"]:%}
+	<tr>
+
+
+		<td bgcolor="#C8FE2E"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#C8FE2E"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+	{% else: %}
+
+	<tr>
+
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+
+	{% endif %}
+
+
+
+
+
+{%endfor%}
+
+
+</table>
 
 
 </body>
