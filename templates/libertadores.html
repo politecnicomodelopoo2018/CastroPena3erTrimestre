@@ -2,58 +2,143 @@
 <html>
 <head>
 	<title>LIBERTADORES</title>
+
+	<style>
+
+		table {
+    		border-collapse: collapse;
+    		width: 30%;
+		}
+
+		td, th {
+    		text-align: left;
+    		padding: 8px;
+		}
+
+		th {
+    		background-color: #4CAF50;
+    		color: white;
+		}
+		tr:nth-child(even){background-color: #f2f2f2}
+
+
+
+
+	</style>
+
+
 </head>
 <body>
 
-<h3><strong>GRUPOS</strong></h3>
+<h3><strong>COPA LIBERTADORES</strong></h3>
 
 
-<table>
+
+<table id="grupo1">
+
+
+
+	<tr>
+
+		<td><strong>GRUPO A</strong></td>
+
+	</tr>
+
 
 
 
 	<tr>
 
-		<td><strong>GRUPO {{ listaA[0].Grupo }}</strong></td>
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
 
 	</tr>
 
+
+{% for item in listaA%}
 
 	<tr>
 
-		<td>Equipo</td>
-		<td>Ptos</td>
-		<td>PJ</td>
-		<td>PG</td>
-		<td>PP</td>
-		<td>PE</td>
-		<td>GF</td>
-		<td>GC</td>
-		<td>Dif</td>
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 
 	</tr>
 
-{% for item in listaA %}
+{%endfor%}
 
-	<tr>
-
-		<td> {{ item.nombre }}</td>
-	    <!--<td> {{ item["Puntos"] }}</td>-->
-		<!--<td> {{ item["PartidosJugados"] }}</td>-->
-		<!--<td> {{ item["Ganados"] }}</td>-->
-		<!--<td> {{ item["Perdidos"] }}</td>-->
-		<!--<td> {{ item["Empatados"] }}</td>-->
-		<!--<td> {{ item["GolesAFavor"] }}</td>-->
-		<!--<td> {{ item["GolesEnContra"] }}</td>-->
-
-
-	</tr>
-
-{% endfor %}
 
 
 </table>
+
+<table id = "grupo2">
+
+	<tr>
+
+		<td><strong>GRUPO B</strong></td>
+
+	</tr>
+
+
+
+
+	<tr>
+
+		<th><strong>Equipos</strong></th>
+		<th><strong>Ptos</strong></th>
+		<th><strong>PJ</strong></th>
+		<th><strong>PG</strong></th>
+		<th><strong>PP</strong></th>
+		<th><strong>PE</strong></th>
+		<th><strong>GF</strong></th>
+		<th><strong>GC</strong></th>
+		<th><strong>DG</strong></th>
+
+	</tr>
+
+
+{% for item in listaB%}
+
+
+	<tr>
+
+
+		<td> {{ item["Nombre"] }}</td>
+	    <td> {{ item["Puntos"] }}</td>
+		<td> {{ item["PartidosJugados"] }}</td>
+		<td> {{ item["Ganados"] }}</td>
+		<td> {{ item["Perdidos"] }}</td>
+		<td> {{ item["Empatados"] }}</td>
+		<td> {{ item["GolesAFavor"] }}</td>
+		<td> {{ item["GolesEnContra"] }}</td>
+		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+
+
+	</tr>
+
+
+
+{%endfor%}
+
+
+</table>
+
+
 
 
 </body>

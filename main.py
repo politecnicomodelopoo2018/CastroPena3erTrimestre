@@ -4,8 +4,10 @@ from Partido import *
 from Equipo import *
 from Usuario import *
 from Prode import *
+from datosCopa import *
 from BD import *
 from flask import *
+
 
 import pymysql
 
@@ -58,48 +60,40 @@ def Libertadores():
     lista8 = []
 
 
-    for contador in range(len(lista)):
-
-        Equipito = Equipo()
-
-        Equipito.id = lista[contador]["idEquipo"]
-        Equipito.nombre = lista[contador]["Nombre"]
-        Equipito.liga = lista[contador]["Liga_idLiga"]
-        Equipito.copa = lista[contador]["Copa_idCopa"]
-        Equipito.grupo = lista[contador]["Grupo"]
+    for item in lista:
 
 
-        if Equipito.grupo == 'A':
 
-            lista1.append(Equipito)
+        if item["Grupo"] == 'A':
 
-        elif Equipito.grupo == 'B':
-            lista2.append(Equipito)
+            lista1.append(item)
 
+        elif item["Grupo"] == 'B':
 
-        elif Equipito.grupo == 'C':
-            lista3.append(Equipito)
-
-        elif Equipito.grupo == 'D':
-            lista4.append(Equipito)
+            lista2.append(item)
 
 
-        elif Equipito.grupo == 'E':
-            lista5.append(Equipito)
+        elif item["Grupo"] == 'C':
+            lista3.append(item)
+
+        elif item["Grupo"] == 'D':
+            lista4.append(item)
 
 
-        elif Equipito.grupo == 'F':
-            lista6.append(Equipito)
+        elif item["Grupo"] == 'E':
+            lista5.append(item)
 
 
-        elif Equipito.grupo == 'G':
-            lista7.append(Equipito)
+        elif item["Grupo"] == 'F':
+            lista6.append(item)
 
 
-        elif Equipito.grupo == "H":
-            lista8.append(Equipito)
+        elif item["Grupo"] == 'G':
+            lista7.append(item)
 
 
+        elif item["Grupo"] == "H":
+            lista8.append(item)
 
 
     return render_template("/libertadores.html", equiposCopaLib = lista, listaA = lista1, listaB= lista2, listaC = lista3, listaD = lista4, listaE = lista5, listaF=lista6, listaG=lista7,listaH=lista8)

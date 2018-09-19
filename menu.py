@@ -87,13 +87,6 @@ while opcion != "5":
 
             Ligue.deleteLiga()
 
-            #if compro:
-
-            #   print("Se elimino correctamente la liga")
-
-            #elif compro == False:
-
-             #   print("No se puede eliminar el obj Liga porque esta asociado a otro objeto")
 
 
         elif opcionUno == "3":
@@ -143,7 +136,7 @@ while opcion != "5":
 
         elif opcionUno == "4":
 
-            opcion = input("1-Liga\n2-Copa\n3-Equipo\n5-Salir\nOPCION: ")
+            opcion = input("1-Liga\n2-Copa\n3-Equipo\n4-Partido\n5-Salir\nOPCION: ")
 
         else:
 
@@ -360,7 +353,7 @@ while opcion != "5":
 
         elif opcionTres == "4":
 
-            opcion = input("1-Liga\n2-Copa\n3-Equipo\n5-Salir\nOPCION: ")
+            opcion = input("1-Liga\n2-Copa\n3-Equipo\n4-Partido\n5-Salir\nOPCION: ")
 
         else:
 
@@ -398,6 +391,9 @@ while opcion != "5":
             goalsEq1 = input("Cuantos goles metio "+Equipe1.nombre+"?: ")
             goalsEq2 = input("Cuantos goles metio "+ Equipe2.nombre + "?: ")
 
+
+
+
             aQuePertenece = input("Partido es de Liga, Copa o Amistoso?:")
 
             if aQuePertenece == "Liga":
@@ -406,7 +402,9 @@ while opcion != "5":
 
                 idliga = int(input("Ingrese el idLiga a la que pertenece el partido: "))
 
-                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,idliga,None)
+                fecha = input("Nro Fecha del partido: ")
+
+                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,idliga,None,fecha)
 
             elif aQuePertenece == "Copa":
 
@@ -414,31 +412,90 @@ while opcion != "5":
 
                 idcopa = input("Ingrese el idCopa a la que pertenece el partido: ")
 
-                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,idcopa)
+                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,idcopa,None)
 
             elif aQuePertenece == "Amistoso":
 
-                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,None)
+                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,None,None)
 
             Match.setPartido()
 
-        # elif opcionCuatro == 2:
-        #
-        #     # deletear
-        #
-        # elif opcionCuatro == 3:
-        #
-        #     # updatear
-        #
-        # else:
-        #
-        #     print("se oprimio una opcion correcta, volviendo al menu")
-        #
-        # opcion = input("1-Liga\n2-Copa\n3-Equipo\n8-Salir\nOPCION: ")
+        elif opcionCuatro == "2":
+
+            print(Partido.getPartidos())
+
+            idPartidoDel = int(input("Escriba el id del partido que desea eliminar: "))
+
+            Match = Partido.getPartido(idPartidoDel)
+
+            Match.deletePartido()
+
+        elif opcionCuatro == "3":
+
+            print(Partido.getPartidos())
+
+            idPartidoUp =input("Escriba el id del partido que quiere modificar: ")
+
+            Match = Partido.getPartido(idPartidoUp)
+
+            print(Equipo.getEquipos())
+
+            eq1 = input("Escriba el id del 1er equipo: ")
+
+            eq2 = input("Escriba el id del 2do equipo: ")
+
+            while eq1 == eq2:
+                print("los id de los equipos no se pueden repetir, vuelva a intentar: ")
+
+                eq1 = input("Escriba el id del 1er equipo: ")
+
+                eq2 = input("Escriba el id del 2do equipo: ")
+
+            Equipe1 = Equipo.getEquipo(eq1)
+            Equipe2 = Equipo.getEquipo(eq2)
+
+            goalsEq1 = input("Cuantos goles metio " + Equipe1.nombre + "?: ")
+            goalsEq2 = input("Cuantos goles metio " + Equipe2.nombre + "?: ")
+
+            aQuePertenece = input("Partido es de Liga, Copa o Amistoso?:")
+
+            if aQuePertenece == "Liga":
+
+                print(Liga.getLigas())
+
+                idliga = int(input("Ingrese el idLiga a la que pertenece el partido: "))
+
+                fecha = input("Nro Fecha del partido: ")
+
+                Match.crearPartido(eq1, eq2, goalsEq1, goalsEq2, idliga, None, fecha)
+
+            elif aQuePertenece == "Copa":
+
+                print(Copa.getCopas())
+
+                idcopa = input("Ingrese el idCopa a la que pertenece el partido: ")
+
+                Match.crearPartido(eq1, eq2, goalsEq1, goalsEq2, None, idcopa, None)
+
+            elif aQuePertenece == "Amistoso":
+
+                Match.crearPartido(eq1, eq2, goalsEq1, goalsEq2, None, None, None)
+
+            Match.updatePartido()
+
+        elif opcionCuatro == "4":
+
+            opcion = input("1-Liga\n2-Copa\n3-Equipo\n8-Salir\nOPCION: ")
+
+        else:
+
+            print("se oprimio una opcion correcta, volviendo al menu")
+
+
 
     # elif opcion == 5:
 
-    #     opcionCinco = input("1-ins"
+        # opcionCinco = input("1-ins"
     #                       "2-del"
     #                       "3-upt")
     #
