@@ -388,41 +388,79 @@ while opcion != "5":
             Equipe1 = Equipo.getEquipo(eq1)
             Equipe2 = Equipo.getEquipo(eq2)
 
-            goalsEq1 = input("Cuantos goles metio "+Equipe1.nombre+"?: ")
-            goalsEq2 = input("Cuantos goles metio "+ Equipe2.nombre + "?: ")
+            programarPart = input("El partido ya se jugo? (si/no) : ")
+
+            while programarPart != "no" and programarPart != "yes":
+
+                programarPart = input("El partido ya se jugo? (si/no) : ")
+
+            if programarPart == "si":
+
+                goalsEq1 = input("Cuantos goles metio "+Equipe1.nombre+"?: ")
+                goalsEq2 = input("Cuantos goles metio "+ Equipe2.nombre + "?: ")
+
+                aQuePertenece = input("Partido es de Liga, Copa o Amistoso?:")
+
+                if aQuePertenece == "Liga":
+
+                    print(Liga.getLigas())
+
+                    idliga = int(input("Ingrese el idLiga a la que pertenece el partido: "))
+
+                    fecha = input("Nro Fecha del partido: ")
+
+                    Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,idliga,None,fecha,None)
+
+                elif aQuePertenece == "Copa":
+
+                    print(Copa.getCopas())
+
+                    idcopa = input("Ingrese el idCopa a la que pertenece el partido: ")
+
+                    instance= input("Ingrese la Instancia de la Copa (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
+
+                    while instance != "Fase" and instance != "Octavos" and instance != "Cuartos" and instance != "Semis" and instance != "Final" and instance != "Terminado":
+
+                        instance = input("Se ingreso una instancia incorrecta, vuelva a intentar (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
+
+                    Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,idcopa,None, instance)
+
+                elif aQuePertenece == "Amistoso":
+
+                    Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,None,None,None)
 
 
+            else:
 
+                aQuePertenece = input("Partido es de Liga, Copa o Amistoso?:")
 
-            aQuePertenece = input("Partido es de Liga, Copa o Amistoso?:")
+                if aQuePertenece == "Liga":
 
-            if aQuePertenece == "Liga":
+                    print(Liga.getLigas())
 
-                print(Liga.getLigas())
+                    idliga = int(input("Ingrese el idLiga a la que pertenece el partido: "))
 
-                idliga = int(input("Ingrese el idLiga a la que pertenece el partido: "))
+                    fecha = input("Nro Fecha del partido: ")
 
-                fecha = input("Nro Fecha del partido: ")
+                    Match.crearPartido(eq1, eq2, None, None, idliga, None, fecha, None)
 
-                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,idliga,None,fecha,None)
+                elif aQuePertenece == "Copa":
 
-            elif aQuePertenece == "Copa":
+                    print(Copa.getCopas())
 
-                print(Copa.getCopas())
+                    idcopa = input("Ingrese el idCopa a la que pertenece el partido: ")
 
-                idcopa = input("Ingrese el idCopa a la que pertenece el partido: ")
+                    instance = input("Ingrese la Instancia de la Copa (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
 
-                instance= input("Ingrese la Instancia de la Copa (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
+                    while instance != "Fase" and instance != "Octavos" and instance != "Cuartos" and instance != "Semis" and instance != "Final" and instance != "Terminado":
+                        instance = input(
+                            "Se ingreso una instancia incorrecta, vuelva a intentar (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
 
-                while instance != "Fase" and instance != "Octavos" and instance != "Cuartos" and instance != "Semis" and instance != "Final" and instance != "Terminado":
+                    Match.crearPartido(eq1, eq2, None, None, None, idcopa, None, instance)
 
-                    instance = input("Se ingreso una instancia incorrecta, vuelva a intentar (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
+                elif aQuePertenece == "Amistoso":
 
-                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,idcopa,None, instance)
-
-            elif aQuePertenece == "Amistoso":
-
-                Match.crearPartido(eq1,eq2,goalsEq1,goalsEq2,None,None,None,None)
+                    Match.crearPartido(eq1, eq2, None, None, None, None, None, None)
 
             Match.setPartido()
 

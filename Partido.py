@@ -45,6 +45,11 @@ class Partido(object):
             self.Fecha = "Null"
             self.Instancia = "Null"
 
+        if goal1 == None and goal2 == None:
+
+            self.GolesEquipo1 = 0
+            self.GolesEquipo2 = 0
+
     def setPartido(self):
 
         if self.Copa is None and self.Liga is None:
