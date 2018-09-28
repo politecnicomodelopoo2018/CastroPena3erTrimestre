@@ -390,7 +390,7 @@ while opcion != "5":
 
             programarPart = input("El partido ya se jugo? (si/no) : ")
 
-            while programarPart != "no" and programarPart != "yes":
+            while programarPart != "no" and programarPart != "si":
 
                 programarPart = input("El partido ya se jugo? (si/no) : ")
 
@@ -453,8 +453,8 @@ while opcion != "5":
                     instance = input("Ingrese la Instancia de la Copa (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
 
                     while instance != "Fase" and instance != "Octavos" and instance != "Cuartos" and instance != "Semis" and instance != "Final" and instance != "Terminado":
-                        instance = input(
-                            "Se ingreso una instancia incorrecta, vuelva a intentar (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
+
+                        instance = input("Se ingreso una instancia incorrecta, vuelva a intentar (Fase/Octavos/Cuartos/Semis/Final/Terminado): ")
 
                     Match.crearPartido(eq1, eq2, None, None, None, idcopa, None, instance)
 
