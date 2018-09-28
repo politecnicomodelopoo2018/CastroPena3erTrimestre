@@ -123,12 +123,20 @@
 		<td bgcolor="#C8FE2E"> {{ item["Empatados"] }}</td>
 		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] }}</td>
 		<td bgcolor="#C8FE2E"> {{ item["GolesEnContra"] }}</td>
-		<td bgcolor="#C8FE2E"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+		<td bgcolor="#C8FE2E"> {{ item["DiferenciaDeGol"] }}</td>
 
 
 	</tr>
+			{% endif %}
 
-	{% else: %}
+
+
+{%endfor%}
+
+
+{% for item in listaA%}
+
+	{% if item["Equipo_idEquipo"] != A[0]["Equipo_idEquipo"] and item["Equipo_idEquipo"] != A[1]["Equipo_idEquipo"]:%}
 
 	<tr>
 

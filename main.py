@@ -69,7 +69,7 @@ def Libertadores():
     for item in range(2):
 
         listaPrimeros.append(listaA[item-1])
-        listaPrimeros.append(listaB[item-1])
+        #listaPrimeros.append(listaB[item-1])
         # listaPrimeros.append(listaC[item-1])
         # listaPrimeros.append(listaD[item-1])
         # listaPrimeros.append(listaF[item-1])
