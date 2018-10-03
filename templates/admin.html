@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+    <title>Partidos</title>
+</head>
+<body>
+
+<tr>
+
+  	<th><strong>Equipo 1</strong></th>
+
+    <tr>
+    <td>
+        <select>
+
+            {% for item in Equipos %}
+                <option value= "idEq1">{{item["Nombre"]}}</option>
+            {% endfor %}
+
+        </select>
+    </td>
+    </tr>
+
+  	<th><strong>Goles</strong></th>
+
+    <tr>
+        <td>
+    <input type="text" name="golesEq1"><br>
+        </td>
+    </tr>
+
+
+
+
+	<th><strong>Equipo 2</strong></th>
+
+    <tr>
+    <td>
+        <select>
+
+            {% for item in Equipos %}
+                <option value= "idEq2">{{item["Nombre"]}}</option>
+            {% endfor %}
+
+        </select>
+    </td>
+    </tr>
+
+	<th><strong>Goles</strong></th>
+
+    <tr>
+        <td>
+    <input type="text" name="golesEq2"><br>
+        </td>
+    </tr>
+
+
+
+</tr>
+
+
+</body>
+</html>
+
+

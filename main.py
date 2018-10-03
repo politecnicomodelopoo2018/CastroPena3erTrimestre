@@ -46,7 +46,7 @@ def Libertadores():
 
     z = BD().run("select * from Equipo join DatosCopa on DatosCopa.Equipo_idEquipo = Equipo.idEquipo where DatosCopa.Copa_idCopa = 1 order by Puntos DESC")
 
-    grupeA = BD().run("call pito('A');")
+    grupeA = BD().run("Call pito('A');")
     grupeB = BD().run("Call pito('B');")
     grupeC = BD().run("Call pito('C');")
     grupeD = BD().run("Call pito('D');")
@@ -64,73 +64,25 @@ def Libertadores():
     listaG = grupeG.fetchall()
     listaH = grupeH.fetchall()
 
-    listaPrimeros= []
-
-    for item in range(2):
-
-        listaPrimeros.append(listaA[item-1])
-        #listaPrimeros.append(listaB[item-1])
-        # listaPrimeros.append(listaC[item-1])
-        # listaPrimeros.append(listaD[item-1])
-        # listaPrimeros.append(listaF[item-1])
-        # listaPrimeros.append(listaG[item-1])
-        # listaPrimeros.append(listaH[item-1])
-
-
 
     lista = z.fetchall()
 
 
-
-    lista1 = []
-    lista2 = []
-    lista3 = []
-    lista4 = []
-    lista5 = []
-    lista6 = []
-    lista7 = []
-    lista8 = []
-
-
-    for item in lista:
-
-
-        if item["Grupo"] == 'A':
-
-            lista1.append(item)
-
-        elif item["Grupo"] == 'B':
-
-            lista2.append(item)
-
-        elif item["Grupo"] == 'C':
-            lista3.append(item)
-
-        elif item["Grupo"] == 'D':
-            lista4.append(item)
-
-
-        elif item["Grupo"] == 'E':
-            lista5.append(item)
-
-
-        elif item["Grupo"] == 'F':
-            lista6.append(item)
-
-
-        elif item["Grupo"] == 'G':
-            lista7.append(item)
-
-
-        elif item["Grupo"] == "H":
-            lista8.append(item)
-
-
-    return render_template("/libertadores.html", equiposCopaLib = lista, listaA = lista1, listaB= lista2, listaC = lista3, listaD = lista4, listaE = lista5, listaF=lista6, listaG=lista7,listaH=lista8, A = listaA, B = listaB, C = listaC, D= listaD, E = listaE, F = listaF, G = listaG, H = listaH)
+    return render_template("/libertadores.html", equiposCopaLib = lista, A = listaA, B = listaB, C = listaC, D= listaD, E = listaE, F = listaF, G = listaG, H = listaH)
 
 @app.route('/uefa')
 def Uefa():
     return render_template("/uefa.html")
+
+@app.route('/admin')
+def administrarPagina():
+
+    teams = BD().run("select * from Equipo;")
+
+    listaEquipos = teams.fetchall()
+
+
+    return render_template("/admin.html", Equipos = listaEquipos)
 
 
 
