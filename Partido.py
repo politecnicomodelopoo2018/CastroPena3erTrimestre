@@ -50,6 +50,8 @@ class Partido(object):
             self.GolesEquipo1 = 0
             self.GolesEquipo2 = 0
 
+
+
     def setPartido(self):
 
         if self.Copa is None and self.Liga is None:
@@ -72,9 +74,17 @@ class Partido(object):
 
             self.Liga = esLiga
 
+        if self.Instancia is None:
+
+            self.Instancia = "null"
+
+        if self.Fecha is None:
+
+            self.Fecha = "null"
 
 
-        cursor = BD().run("insert into Partido (idPartidos, idEquipo1, idEquipo2, GolesEquipo1, GolesEquipo2, Liga_idLiga, Copa_idCopa, NroFecha, Instancia) values (null, '"+str(self.Equipo1)+"','"+str(self.Equipo2)+"', '"+str(self.GolesEquipo1)+"','"+str(self.GolesEquipo2)+"',"+str(self.Liga)+", "+str(self.Copa)+","+str(self.Fecha)+", '"+str(self.Instancia)+"');")
+
+        cursor = BD().run("insert into Partido (idPartidos, idEquipo1, idEquipo2, GolesEquipo1, GolesEquipo2, Liga_idLiga, Copa_idCopa, NroFecha, Instancia) values (null, '"+str(self.Equipo1)+"','"+str(self.Equipo2)+"', '"+str(self.GolesEquipo1)+"','"+str(self.GolesEquipo2)+"',"+str(self.Liga)+", "+str(self.Copa)+","+str(self.Fecha)+", "+str(self.Instancia)+");")
 
         self.id = cursor.lastrowid
 

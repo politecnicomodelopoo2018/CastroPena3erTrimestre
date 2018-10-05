@@ -79,12 +79,51 @@ def administrarPagina():
 
     teams = BD().run("select * from Equipo;")
 
+    competencia1 = BD().run("select * from Copa;")
+    competencia2 = BD().run("select * from Liga;")
+    equipos = BD().run("select * from Equipo")
+
+    copas = competencia1.fetchall()
+    ligas = competencia2.fetchall()
+    teamLista = equipos.fetchall()
+
     listaEquipos = teams.fetchall()
 
 
-    return render_template("/admin.html", Equipos = listaEquipos)
+    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista)
+
+@app.route('/admin2', methods= ['POST','GET'])
+def adminPartidos():
+
+    match = Partido()
+    eq1 = request.form.get("Eq1")
+    eq2 = request.form.get("Eq2")
+    golesEq1 = request.form.get("golesEq1")
+    golesEq2 = request.form.get("golesEq2")
+    competencia = request.form.get("competencia")
+
+    pito = competencia[1]
+    letra = competencia[0]
+
+    if letra == 'A':
+
+        match.crearPartido(eq1,eq2,golesEq1, golesEq2, None, None, None, None)
+
+    elif letra == 'l':
+
+        match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, int(pito), None, None, None)
+
+    elif letra == 'c':
+
+        match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, None, int(pito),None, None)
+
+    match.setPartido()
 
 
+
+
+
+    return render_template("/admin.html")
 
 
 # Ligue.crearLiga("La Liga Santander", "España", None, False, 2018)
@@ -94,6 +133,21 @@ def administrarPagina():
 # Equipe1.crearEquipo("Atletico de Madrid", 1, None)
 # Equipe2.crearEquipo("Boca Juniors", 1, None)
 
+@app.route('/admin2', methods= ['POST','GET'])
+def adminEquipos():
+
+    team = Equipo()
+
+    name = request.form.get("Equipo")
+    cup = request.form.get("Copa")
+    ligue = request.form.get("Liga")
+
+    team.crearEquipo(name,ligue,cup,None)
+
+    team.setEquipo()
+
+
+    return render_template("/admin.html")
 
 # Equipe1.setEquipo()
 # Equipe2.setEquipo()

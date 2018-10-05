@@ -4,58 +4,164 @@
 </head>
 <body>
 
+<table>
+
 <tr>
 
+
+    <th><strong>Competencia</strong></th>
   	<th><strong>Equipo 1</strong></th>
-
-    <tr>
-    <td>
-        <select>
-
-            {% for item in Equipos %}
-                <option value= "idEq1">{{item["Nombre"]}}</option>
-            {% endfor %}
-
-        </select>
-    </td>
-    </tr>
-
-  	<th><strong>Goles</strong></th>
-
-    <tr>
-        <td>
-    <input type="text" name="golesEq1"><br>
-        </td>
-    </tr>
-
-
-
-
-	<th><strong>Equipo 2</strong></th>
-
-    <tr>
-    <td>
-        <select>
-
-            {% for item in Equipos %}
-                <option value= "idEq2">{{item["Nombre"]}}</option>
-            {% endfor %}
-
-        </select>
-    </td>
-    </tr>
-
-	<th><strong>Goles</strong></th>
-
-    <tr>
-        <td>
-    <input type="text" name="golesEq2"><br>
-        </td>
-    </tr>
+    <th><strong>Goles</strong></th>
+    <th><strong>Equipo 2</strong></th>
+    <th><strong>Goles</strong></th>
 
 
 
 </tr>
+
+<form action="/admin2" method="post" >
+
+<tr>
+
+    <td>
+
+        <select name="competencia">
+
+            {%for item in Cups:%}
+
+
+            <option value="c{{item.idCopa}}"> {{item["Nombre"]}} </option>
+
+            {%endfor%}
+
+            {%for item in Ligues:%}
+
+            <option value="l{{item.idLiga}}"> {{item["Nombre"]}} </option>
+
+            {%endfor%}
+
+            <option value="Amistoso"> Amistoso </option>
+
+        </select>
+
+    </td>
+
+
+
+    <td>
+        <select name="Eq1">
+
+            {% for item in Equipos: %}
+
+                <option value= "{{item.idEquipo}}">{{item["Nombre"]}}</option>
+
+            {% endfor %}
+
+        </select>
+    </td>
+
+
+
+
+    <td>
+        <select name="golesEq1">
+
+            {% for item in range(10) %}
+                <option value= "{{item}}" >{{item}}</option>
+            {% endfor %}
+
+        </select>
+    </td>
+
+
+
+
+    <td>
+        <select  name="Eq2">
+
+            {% for item in Equipos %}
+                <option value= "{{item.idEquipo}}">{{item["Nombre"]}}</option>
+            {% endfor %}
+
+        </select>
+    </td>
+
+
+
+
+    <td>
+        <select name="golesEq2">
+
+            {% for item in range(10) %}
+                <option value= "{{item}}" >{{item}}</option>
+            {% endfor %}
+
+        </select>
+    </td>
+
+
+</tr>
+
+    <input type="submit" value="Submit">
+
+</form>
+
+
+</table>
+
+<table>
+
+    <tr>
+
+
+    <th><strong>Nombre</strong></th>
+  	<th><strong>Copa</strong></th>
+    <th><strong>Liga</strong></th>
+
+
+    </tr>
+
+    <form action="/admin2" method="post" >
+
+    <tr>
+
+        <td>
+
+            <input type="text" name="Equipo"><br>
+
+        </td>
+        <td>
+
+        <select name="Copa">
+
+            {%for item in Cups:%}
+
+            <option value="{{item.idCopa}}"> {{item["Nombre"]}} </option>
+
+            {%endfor%}
+
+        </select>
+        </td>
+
+        <td>
+        <select name="Liga">
+
+            {%for item in Ligues:%}
+
+            <option value="{{item.idLiga}}"> {{item["Nombre"]}} </option>
+
+            {%endfor%}
+
+        </select>
+        </td>
+
+    </tr>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+</table>
 
 
 </body>
