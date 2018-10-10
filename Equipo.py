@@ -25,7 +25,11 @@ class Equipo(object):
 
             participarCopa = self.copa
 
-        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', "+str(self.grupo)+");")
+        if self.grupo is None:
+
+            self.grupo = "Null"
+
+        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', '"+str(self.grupo)+"');")
 
 
         self.id = cursor.lastrowid

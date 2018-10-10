@@ -12,6 +12,19 @@ class Copa(object):
 
     def crearCopa(self,nom,org,cam,ins, cantGrup):
 
+        if cantGrup is None:
+
+            cantGrup = 8
+
+        if ins is None:
+
+            ins = "Fase"
+
+        if cam is None:
+
+            cam = "Null"
+
+
         self.nombre = nom
         self.organizador=org
         self.campeon=cam

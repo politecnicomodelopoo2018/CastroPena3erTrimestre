@@ -78,7 +78,7 @@ def Uefa():
 def administrarPagina():
 
     teams = BD().run("select * from Equipo;")
-
+    matchs = BD().run("select * from Partido;")
     competencia1 = BD().run("select * from Copa;")
     competencia2 = BD().run("select * from Liga;")
     equipos = BD().run("select * from Equipo")
@@ -90,115 +90,75 @@ def administrarPagina():
     listaEquipos = teams.fetchall()
 
 
-    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista)
+    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs)
 
 @app.route('/admin2', methods= ['POST','GET'])
+
 def adminPartidos():
+    submit = request.form.get("enviar")
 
-    match = Partido()
-    eq1 = request.form.get("Eq1")
-    eq2 = request.form.get("Eq2")
-    golesEq1 = request.form.get("golesEq1")
-    golesEq2 = request.form.get("golesEq2")
-    competencia = request.form.get("competencia")
+    if submit == "Submit1":
+        match = Partido()
+        eq1 = request.form.get("Eq1")
+        eq2 = request.form.get("Eq2")
+        golesEq1 = request.form.get("golesEq1")
+        golesEq2 = request.form.get("golesEq2")
+        competencia = request.form.get("competencia")
 
-    pito = competencia[1]
-    letra = competencia[0]
+        pito = competencia[1]
+        letra = competencia[0]
 
-    if letra == 'A':
+        if letra == 'A':
 
-        match.crearPartido(eq1,eq2,golesEq1, golesEq2, None, None, None, None)
+            match.crearPartido(eq1,eq2,golesEq1, golesEq2, None, None, None, None)
 
-    elif letra == 'l':
+        elif letra == 'l':
 
-        match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, int(pito), None, None, None)
+            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, int(pito), None, None, None)
 
-    elif letra == 'c':
+        elif letra == 'c':
 
-        match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, None, int(pito),None, None)
+            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, None, int(pito),None, None)
 
-    match.setPartido()
+        match.setPartido()
 
+    elif submit == "Submit2":
 
+        team = Equipo()
 
+        name = request.form.get("Equipo")
+        cup = request.form.get("Copa")
+        ligue = request.form.get("Liga")
+        grupe = request.form.get("Grupo")
 
+        team.crearEquipo(name, ligue, cup, grupe)
+
+        team.setEquipo()
+
+    elif submit == "Submit3":
+
+        lig = Liga()
+
+        name = request.form.get("nomLiga")
+        anio = request.form.get("Año")
+        pais = request.form.get("Pais")
+        term = request.form.get("term")
+
+        lig.crearLiga(name, pais, None, term, anio)
+
+        lig.setLiga()
+
+    elif submit == "Submit4":
+
+        copa = Copa()
+
+        name = request.form.get("nomCopa")
+        org = request.form.get("nomOrg")
+
+        copa.crearCopa(name, org, None, None, None)
+        copa.setCopa()
 
     return render_template("/admin.html")
-
-
-# Ligue.crearLiga("La Liga Santander", "España", None, False, 2018)
-#
-# Ligue.setLiga()
-#
-# Equipe1.crearEquipo("Atletico de Madrid", 1, None)
-# Equipe2.crearEquipo("Boca Juniors", 1, None)
-
-@app.route('/admin2', methods= ['POST','GET'])
-def adminEquipos():
-
-    team = Equipo()
-
-    name = request.form.get("Equipo")
-    cup = request.form.get("Copa")
-    ligue = request.form.get("Liga")
-
-    team.crearEquipo(name,ligue,cup,None)
-
-    team.setEquipo()
-
-
-    return render_template("/admin.html")
-
-# Equipe1.setEquipo()
-# Equipe2.setEquipo()
-
-# Match1.crearPartido(1, 2, 2, 1, 1, None)
-
-# Match1.setPartido()
-
-# Cup=Copa()
-
-# Cup=Copa.getCopa(2)
-
-# Cup.crearCopa("UEFITA CACA", "UEfafafa", 1, "Terminada")
-
-# Cup.updateCopa()
-
-# Cup.crearCopa("UEFA CAQUITA", "UEFA", None, "Final")
-
-# Cup.setCopa()
-
-# User = Usuario()
-
-# User.crearUsuario("Franckius", "unacontraseñafacil", "francopenaaaaaaaaaaaj2000@yahoo.com", 1)
-
-# User.setUsuario()
-
-# Prode = Prode()
-
-# Prode.crearProde(1,1,3,1)
-
-# Prode.setProde()
-
-# Equipe1.crearEquipo("Futbol Club Barcelona", 3, 2)
-
-# Equipe1.setEquipo()
-
-# Equipe1 = Equipo.getEquipo(2)
-
-# Equipe1.crearEquipo("Real Mandril", 3, 2)
-
-# Equipe1.updateEquipo()
-
-# Match1.crearPartido(2,4,0,7,3,None)
-
-# Match1.setPartido()
-
-# Match1= Partido.getPartido(3)
-
-# Match1.deletePartido()
-
-#print(Prode.getProdes())
 
 
 if __name__ == '__main__':  # para actualizar automaticamente la pagina sin tener que cerrarla
