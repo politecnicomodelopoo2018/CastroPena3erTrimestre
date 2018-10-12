@@ -96,6 +96,8 @@ def administrarPagina():
 
 def adminPartidos():
     submit = request.form.get("enviar")
+    idpartido = request.form.get("idPartido")
+    idequipo = request.form.get("idEquipo")
 
     if submit == "Submit1":
         match = Partido()
@@ -157,6 +159,63 @@ def adminPartidos():
 
         copa.crearCopa(name, org, None, None, None)
         copa.setCopa()
+
+    elif submit == "Modificar":
+
+
+
+        Match = Partido.getPartido(idpartido)
+
+        team1 = request.form.get("idTeam1")
+        team2 = request.form.get("idTeam2")
+        golEq1 = request.form.get("golesEq1")
+        golEq2 = request.form.get("golesEq2")
+
+        competencia = request.form.get("competencia")
+
+        pito = competencia[1]
+        letra = competencia[0]
+
+        if letra == 'A':
+
+            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, None, None, None, None)
+
+        elif letra == 'l':
+
+            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, int(pito), None, None, None)
+
+        elif letra == 'c':
+
+            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, None, int(pito), None, None)
+
+        Match.updatePartido()
+
+
+
+    elif submit == "Borrar":
+
+        partidu = Partido.getPartido(idpartido)
+        partidu.deletePartido()
+
+
+    elif submit == "Modificar1":
+
+        Team = Equipo.getEquipo(idequipo)
+
+        nomTeam = request.form.get("nameTeam")
+        copaTeam = request.form.get("copaTeam")
+        ligaTeam = request.form.get("ligaTeam")
+        grupeTeam = request.form.get("teamGrupo")
+
+        Team.crearEquipo(nomTeam, ligaTeam, copaTeam, grupeTeam)
+
+        Team.updateEquipo()
+
+    elif submit == "Borrar1":
+
+        Team = Equipo.getEquipo(idequipo)
+
+        Team.deleteEquipo()
 
     return render_template("/admin.html")
 

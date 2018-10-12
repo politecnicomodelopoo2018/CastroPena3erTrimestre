@@ -29,7 +29,7 @@ class Equipo(object):
 
             self.grupo = "Null"
 
-        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', '"+str(self.grupo)+"');")
+        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', "+str(self.grupo)+");")
 
 
         self.id = cursor.lastrowid
@@ -41,7 +41,13 @@ class Equipo(object):
 
             self.copa = "null"
 
-        BD().run("update Equipo set Nombre = '"+self.nombre+"', Copa_idCopa = "+str(self.copa)+", Liga_idLiga = "+str(self.liga)+", Grupo = '"+self.grupo+"' where idEquipo = '"+str(self.id)+"';")
+        if self.grupo == "null" or self.grupo == "Null":
+
+            BD().run("update Equipo set Nombre = '"+self.nombre+"', Copa_idCopa = "+str(self.copa)+", Liga_idLiga = "+str(self.liga)+", Grupo = "+str(self.grupo)+" where idEquipo = '"+str(self.id)+"';")
+
+        else:
+
+            BD().run("update Equipo set Nombre = '" + self.nombre + "', Copa_idCopa = " + str(self.copa) + ", Liga_idLiga = " + str(self.liga) + ", Grupo = '" + str(self.grupo) + "' where idEquipo = '" + str(self.id) + "';")
 
     def deleteEquipo(self):
 

@@ -693,50 +693,119 @@
             <th><strong>Goles</strong></th>
             <th><strong>Equipo 2</strong></th>
             <th><strong>Goles</strong></th>
-            <th><strong>id Copa</strong></th>
-            <th><strong>id Liga</strong></th>
+            <th><strong>Competencia</strong></th>
+
 
         </tr>
 
-        <form action="/admin2" method="post">
+
 
         {%for Match in Partidos:%}
-
+       <form action="/admin2" method="post">
+           <input type="hidden" name="idPartido" value="{{Match.idPartidos}}">
         <tr>
 
             <td>
+                <select name="idTeam1">
 
-                {{Match.idEquipo1}}
+                    {%for Eq in Teams%}
 
-            </td>
+                    {%if Eq.idEquipo == Match.idEquipo1:%}
 
-            <td>
+                            <option value="{{Match.idEquipo1}}" selected >{{Eq.Nombre}}(Equipo Uno)</option>
 
-                {{Match.GolesEquipo1}}
+                    {%else:%}
 
-            </td>
+                            <option value="{{Match.idEquipo1}}">{{Eq.Nombre}}</option>
 
-            <td>
+                    {%endif%}
 
-                {{Match.idEquipo2}}
+                {%endfor%}
 
-            </td>
-
-            <td>
-
-                {{Match.GolesEquipo2}}
+                </select>
 
             </td>
 
             <td>
 
-                {{Match.Copa_idCopa}}
+                <input type="text" name="golesEq1" value="{{Match.GolesEquipo1}}" >
 
             </td>
 
             <td>
 
-                {{Match.Liga_idLiga}}
+                <select name="idTeam2">
+
+                    {%for Eq in Teams%}
+
+                    {%if Eq.idEquipo == Match.idEquipo2:%}
+
+                            <option value="{{Match.idEquipo2}}" selected >{{Eq.Nombre}}(Equipo Dos)</option>
+
+                    {%else:%}
+
+                            <option value="{{Match.idEquipo2}}">{{Eq.Nombre}}</option>
+
+                    {%endif%}
+
+                {%endfor%}
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <input type="text" name="golesEq2" value="{{Match.GolesEquipo2}}" >
+
+            </td>
+
+            <td>
+
+                <select name="competencia">
+
+                    {%for item in Cups:%}
+
+                        {%if Match.Copa_idCopa == item.idCopa%}
+
+
+                            <option value="c{{item.idCopa}}" selected> {{item["Nombre"]}} </option>
+
+
+
+                        {%else:%}
+
+                            <option value="c{{item.idCopa}}"> {{item["Nombre"]}} </option>
+
+                        {%endif%}
+
+                    {%endfor%}
+
+                    {%for item in Ligues:%}
+
+                        {%if Match.Liga_idLiga == item.idLiga%}
+
+                            <option value="l{{item.idLiga}}" selected> {{item["Nombre"]}} </option>
+
+                        {%else:%}
+
+                            <option value="l{{item.idLiga}}"> {{item["Nombre"]}} </option>
+
+                        {%endif%}
+
+                    {%endfor%}
+
+                    {%if Match.Liga_idLiga == None and Match.Copa_idCopa == None:%}
+
+                    <option value="Amistoso" selected> Amistoso </option>
+
+                    {%else:%}
+
+                    <option value="Amistoso"> Amistoso </option>
+
+                    {%endif%}
+
+                </select>
 
             </td>
 
@@ -746,19 +815,343 @@
 
             </td>
 
+            <td>
+
+                <input type="submit" value="Borrar" name="enviar">
+
+            </td>
+
         </tr>
+
+ </form>
 
         {%endfor%}
 
 
 
 
-        </tr>
 
-        </form>
+
 
     </table>
 </div>
+
+<div>
+
+    <table>
+
+        <h3>MODIFICAR EQUIPO</h3>
+
+
+        <tr>
+
+            <th><strong>Nombre</strong></th>
+            <th><strong>Liga</strong></th>
+            <th><strong>Copa</strong></th>
+            <th><strong>Grupo</strong></th>
+
+
+
+        </tr>
+
+
+        {%for item in Teams:%}
+         <form action="/admin2" method="post">
+           <input type="hidden" name="idEquipo" value="{{item.idEquipo}}">
+
+        <tr>
+
+            <td>
+
+                <input type="text" name="nameTeam" value="{{item.Nombre}}">
+
+            </td>
+
+            <td>
+
+                <select name="ligaTeam">
+
+                    {%for Liga in Ligues:%}
+
+                        {%if item.Liga_idLiga == Liga.idLiga:%}
+
+                            <option value="{{item.Liga_idLiga}}" selected>{{Liga.Nombre}}</option>
+
+                        {%else:%}
+
+                            <option value="{{item.Liga_idLiga}}" >{{Liga.Nombre}}</option>
+
+                        {%endif%}
+
+                    {%endfor%}
+
+                </select>
+
+
+            </td>
+
+
+            <td>
+
+                <select name="copaTeam">
+
+                    {%if item.Copa_idCopa == None or item.Copa_idCopa == "Null:"%}
+
+                        <option value="Null" selected>-</option>
+
+                    {%endif%}
+
+                    {%for Copa in Cups:%}
+
+                        {%if item.Copa_idCopa == Copa.idCopa:%}
+
+                            <option value="{{item.Copa_idCopa}}" selected>{{Copa.Nombre}}</option>
+
+                        {%else:%}
+
+                            <option value="{{item.Copa_idCopa}}" >{{Copa.Nombre}}</option>
+
+                        {%endif%}
+
+                    {%endfor%}
+
+                    {%if item.Copa_idCopa != None and item.Copa_idCopa != "Null:"%}
+
+                        <option value="Null">-</option>
+
+                    {%endif%}
+
+                </select>
+
+            </td>
+
+
+            <td>
+
+                <select name="teamGrupo">
+
+                    {%if item.Grupo == "A":%}
+
+                        <option value="A" selected> A </option>
+                        <option value="B"> B </option>
+                        <option value="C"> C </option>
+                        <option value="D"> D </option>
+                        <option value="E"> E </option>
+                        <option value="F"> F </option>
+                        <option value="G"> G </option>
+                        <option value="H"> H </option>
+                        <option value="Null"> - </option>
+
+                    {%elif item.Grupo == "B":%}
+
+                        <option value="B" selected> B </option>
+                        <option value="A"> A </option>
+                        <option value="C"> C </option>
+                        <option value="D"> D </option>
+                        <option value="E"> E </option>
+                        <option value="F"> F </option>
+                        <option value="G"> G </option>
+                        <option value="H"> H </option>
+                        <option value="Null"> - </option>
+
+                    {%elif item.Grupo == "C":%}
+
+                        <option value="C" selected> C </option>
+                        <option value="A"> A </option>
+                        <option value="B"> B </option>
+                        <option value="D"> D </option>
+                        <option value="E"> E </option>
+                        <option value="F"> F </option>
+                        <option value="G"> G </option>
+                        <option value="H"> H </option>
+                        <option value="Null"> - </option>
+                    {%elif item.Grupo == "D":%}
+
+                        <option value="D" selected> D </option>
+                        <option value="A"> A </option>
+                        <option value="B"> B </option>
+                        <option value="C"> C </option>
+                        <option value="E"> E </option>
+                        <option value="F"> F </option>
+                        <option value="G"> G </option>
+                        <option value="H"> H </option>
+                        <option value="Null"> - </option>
+
+                    {%elif item.Grupo == "E":%}
+
+                        <option value="E" selected> E </option>
+                        <option value="A"> A </option>
+                        <option value="B"> B </option>
+                        <option value="C"> C </option>
+                        <option value="D"> D </option>
+                        <option value="F"> F </option>
+                        <option value="G"> G </option>
+                        <option value="H"> H </option>
+                        <option value="Null"> - </option>
+
+                    {%elif item.Grupo == "F":%}
+
+                        <option value="F" selected> F </option>
+                        <option value="A"> A </option>
+                        <option value="B"> B </option>
+                        <option value="C"> C </option>
+                        <option value="D"> D </option>
+                        <option value="E"> E </option>
+                        <option value="G"> G </option>
+                        <option value="H"> H </option>
+                        <option value="Null"> - </option>
+                    {%elif item.Grupo == "G":%}
+
+                        <option value="G" selected> G </option>
+                        <option value="A"> A </option>
+                        <option value="B"> B </option>
+                        <option value="C"> C </option>
+                        <option value="D"> D </option>
+                        <option value="E"> E </option>
+                        <option value="F"> F </option>
+                        <option value="H"> H </option>
+                        <option value="Null"> - </option>
+
+                    {%elif item.Grupo == "H":%}
+
+                        <option value="H" selected> H </option>
+                        <option value="A"> A </option>
+                        <option value="B"> B </option>
+                        <option value="C"> C </option>
+                        <option value="D"> D </option>
+                        <option value="E"> E </option>
+                        <option value="F"> F </option>
+                        <option value="G"> G </option>
+                        <option value="Null"> - </option>
+
+                    {%else:%}
+
+                        <option value="A"> A </option>
+                        <option value="B"> B </option>
+                        <option value="C"> C </option>
+                        <option value="D"> D </option>
+                        <option value="E"> E </option>
+                        <option value="F"> F </option>
+                        <option value="G"> G </option>
+                        <option value="H"> H </option>
+                        <option value="Null" selected> -</option>
+
+
+
+
+                    {%endif%}
+
+
+
+
+                </select>
+
+
+            </td>
+
+            <td>
+
+                <input type="submit" value="Modificar1" name="enviar">
+
+            </td>
+
+            <td>
+
+                <input type="submit" value="Borrar1" name="enviar">
+
+        </tr>
+         </form>
+
+        {%endfor%}
+
+    </table>
+
+
+</div>
+
+<div>
+
+    <table>
+
+        <h3>MODIFICAR LIGA</h3>
+
+        <tr>
+
+            <th><strong>Nombre</strong></th>
+            <th><strong>Pais</strong></th>
+            <th><strong>Año</strong></th>
+            <th><strong>Terminada</strong></th>
+
+
+        </tr>
+
+        {%for item in Ligues:%}
+        <form action="/admin2" method="post">
+            <input type="hidden" name="idLiga" value="{{item.idLiga}}">
+        <tr>
+
+            <td>
+
+                <input name="nameLiga" value="{{item.Nombre}}">
+
+
+            </td>
+
+            <td>
+
+                <input name="Pais" value="{{item.Pais}}" type="text">
+
+
+            </td>
+
+            <td>
+
+                <input name="Año" type="text" value="{{item.Año}}">
+
+
+            </td>
+
+            <td>
+
+                <select name="term">
+
+                    {%if item.Terminada == "si"%}
+
+                        <option value="si" selected>SI</option>
+                        <option value="no" >NO</option>
+
+                    {%else:%}
+
+                        <option value="si" >SI</option>
+                        <option value="no" selected>NO</option>
+
+                    {%endif%}
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <input type="submit" value="Modificar3" name="enviar">
+
+            </td>
+
+            <td>
+
+                <input type="submit" value="Borrar3" name="enviar"
+
+            </td>
+
+
+        </tr>
+        </form>
+        {%endfor%}
+    </table>
+
+</div>
+
+
 
 </body>
 </html>
