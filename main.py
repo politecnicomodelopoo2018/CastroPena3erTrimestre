@@ -74,6 +74,41 @@ def Libertadores():
 def Uefa():
     return render_template("/uefa.html")
 
+
+@app.route('/login', methods=['GET','POST'])
+def loginAdmin():
+
+    #submit = request.form.get("Enviar")
+    username = request.form.get("nick")
+    password = request.form.get("pass")
+
+    User = Usuario.getUsuarioPorNombre(username)
+
+    if User.nombre == username and User.contraseña == password:
+
+        return render_template("/admin.html")
+
+    else:
+
+        return False
+
+
+@app.route('/signUp', methods=['GET', 'POST'])
+def signUpAdmin():
+
+    # submit = request.form.get("Enviar")
+    username = request.form.get("nick")
+    password = request.form.get("pass")
+
+    User = Usuario()
+
+    User.crearUsuario(username, Usuario.setContraseña(password))
+
+    User.setUsuario()
+
+    return render_template("/login.html")
+
+
 @app.route('/admin', methods=['POST', 'GET'])
 def administrarPagina():
 
@@ -247,7 +282,7 @@ def administrarPagina():
 
     listaEquipos = teams.fetchall()
 
-    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs)
+    return render_template("/login.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs)
 
 
 

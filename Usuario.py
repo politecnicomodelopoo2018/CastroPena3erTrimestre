@@ -1,4 +1,7 @@
 from BD import *
+import hashlib
+import smtplib
+
 
 class Usuario(object):
 
@@ -8,40 +11,47 @@ class Usuario(object):
     mail = None
     hincha = None
 
-    def crearUsuario(self, nom, con, meil, equ):
+    def crearUsuario(self, nom, con):
 
-        self.nombre=nom
-        self.contraseña=con
-        self.mail=meil
-        self.hincha=equ
+        #users = Usuario.getUsuarios()
+
+        self.nombre = nom
+        self.contraseña = con
+
 
 
     def setUsuario(self):
 
-        cursor = BD().run("insert into Usuario (idUsuario, Nombre, Contraseña, Mail, Equipo_idEquipo) values (null, '"+self.nombre+"', '"+self.contraseña+"','"+self.mail+"', '"+str(self.hincha)+"');")
+        cursor = BD().run("insert into Usuario (idUsuario, Nombre, Contraseña) values (null, '"+self.nombre+"', '"+self.contraseña+"');")
 
         self.id = cursor.lastrowid
 
     def updateUsuario(self):
 
-        BD().run("update Usuario set Nombre = '"+self.nombre+"', Contraseña = '"+self.contraseña+"', Mail = '"+self.mail+"', Equipo_idEquipo = '"+str(self.hincha)+"' where idUsuario = '"+str(self.id)+"';")
+        BD().run("update Usuario set Nombre = '"+self.nombre+"', Contraseña = '"+self.contraseña+"' where idUsuario = '"+str(self.id)+"';")
 
     def deleteUsuario(self):
 
-        contadorProde = BD().run("select count(*) from Prode where Usuario_idUsuario = '"+str(self.id)+"';")
+        # contadorProde = BD().run("select count(*) from Prode where Usuario_idUsuario = '"+str(self.id)+"';")
+        #
+        # cont1 = None
 
-        cont1 = None
+        BD().run("delete from Usuario where idUsuario = '" + str(self.id) + "';")
 
-        for item in contadorProde:
-            cont1 = item["count(*)"]
+        # for item in contadorProde:
+        #     cont1 = item["count(*)"]
+        #
+        # if cont1 == 0:
+        #
+        #     BD().run("delete from Usuario where idUsuario = '" + str(self.id) + "';")
+        #
+        # else:
+        #
+        #     return False
+    @staticmethod
+    def setContraseña(contraseña):
 
-        if cont1 == 0:
-
-            BD().run("delete from Usuario where idUsuario = '" + str(self.id) + "';")
-
-        else:
-
-            return False
+        return hashlib.sha256((contraseña).encode('utf-8')).hexdigest()
 
     @staticmethod
     def getUsuario(unID):
@@ -53,8 +63,7 @@ class Usuario(object):
         UnUsuario.id = lista[0]["idUsuario"]
         UnUsuario.nombre = lista[0]["Nombre"]
         UnUsuario.contraseña = lista[0]["Contraseña"]
-        UnUsuario.mail = lista[0]["Mail"]
-        UnUsuario.hincha = lista[0]["Equipo_idEquipo"]
+
 
         return UnUsuario
 
@@ -69,3 +78,13 @@ class Usuario(object):
             lista_aux.append(item)
 
         return lista_aux
+
+    @staticmethod
+    def getUsuarioPorNombre(username):
+
+
+        u = BD().run("select * from Usuario where Nombre = '"+username+"';")
+        usuario = u.fetchall()
+        user = Usuario.getUsuario(usuario["idUsuario"])
+
+        return user
