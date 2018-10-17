@@ -49,7 +49,7 @@ class Copa(object):
             self.campeon = "null"
 
 
-        BD().run("update Copa set Nombre = '"+self.nombre+"', Organizador = '"+self.organizador+"', idEquipo_Campeon = "+str(self.campeon)+", Instancia = '"+self.instancia+"', Cant_Grupos = '"+str(self.CantidadGrupos)+"' where idCopa = '"+str(self.id)+"';")
+        BD().run("update Copa set Nombre = '"+self.nombre+"', Organizador = '"+self.organizador+"', idEquipo_Campeon = "+str(self.campeon)+", Instancia = '"+self.instancia+"', Cant_Grupos = "+str(self.CantidadGrupos)+" where idCopa = '"+str(self.id)+"';")
 
     def deleteCopa(self):
 

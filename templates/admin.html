@@ -22,7 +22,7 @@
 
 </tr>
 
-    <form action="/admin2" method="post" >
+    <form action="/admin" method="post" >
 
         <tr>
 
@@ -135,7 +135,7 @@
 
     </tr>
 
-    <form action="/admin2" method="post" >
+    <form action="/admin" method="post" >
 
     <tr>
 
@@ -221,7 +221,7 @@
 
         </tr>
 
-        <form action="/admin2" method="post">
+        <form action="/admin" method="post">
 
 
         <tr>
@@ -649,7 +649,7 @@
 
         </tr>
 
-        <form action="/admin2" method="post">
+        <form action="/admin" method="post">
 
         <tr>
 
@@ -701,7 +701,7 @@
 
 
         {%for Match in Partidos:%}
-       <form action="/admin2" method="post">
+       <form action="/admin" method="post">
            <input type="hidden" name="idPartido" value="{{Match.idPartidos}}">
         <tr>
 
@@ -856,7 +856,7 @@
 
 
         {%for item in Teams:%}
-         <form action="/admin2" method="post">
+         <form action="/admin" method="post">
            <input type="hidden" name="idEquipo" value="{{item.idEquipo}}">
 
         <tr>
@@ -1086,7 +1086,7 @@
         </tr>
 
         {%for item in Ligues:%}
-        <form action="/admin2" method="post">
+        <form action="/admin" method="post">
             <input type="hidden" name="idLiga" value="{{item.idLiga}}">
         <tr>
 
@@ -1133,13 +1133,13 @@
 
             <td>
 
-                <input type="submit" value="Modificar3" name="enviar">
+                <input type="submit" value="Modificar2" name="enviar">
 
             </td>
 
             <td>
 
-                <input type="submit" value="Borrar3" name="enviar"
+                <input type="submit" value="Borrar2" name="enviar">
 
             </td>
 
@@ -1151,9 +1151,61 @@
 
 </div>
 
+<div>
+
+    <table>
+
+        <h3>MODIFICAR COPA</h3>
+
+        <tr>
+
+            <th><strong>Nombre</strong></th>
+            <th><strong>Organanizacion</strong></th>
+
+
+        </tr>
+
+        {%for item in Cups:%}
+        <form action="/admin" method="post">
+            <input type="hidden" name="idCopa" value="{{item.idCopa}}">
+        <tr>
+
+            <td>
+
+                <input name="nameCup" type="text" value="{{item.Nombre}}">
+
+            </td>
+
+            <td>
+
+                <input name="orgCup" type="text" value="{{item.Organizador}}">
+
+            </td>
+
+            <td>
+
+                <input value="Modificar3" type="submit" name="enviar">
+
+            </td>
+
+            <td>
+
+                <input value="Borrar3" type="submit" name="enviar">
+
+            </td>
+
+        </tr>
+
+
+        </form>
+        {%endfor%}
+
+    </table>
+
+</div>
+
+
 
 
 </body>
 </html>
-
-

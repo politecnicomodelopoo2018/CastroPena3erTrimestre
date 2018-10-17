@@ -74,30 +74,16 @@ def Libertadores():
 def Uefa():
     return render_template("/uefa.html")
 
-@app.route('/admin')
+@app.route('/admin', methods=['POST', 'GET'])
 def administrarPagina():
 
-    teams = BD().run("select * from Equipo;")
-    matchs = BD().run("select * from Partido;")
-    competencia1 = BD().run("select * from Copa;")
-    competencia2 = BD().run("select * from Liga;")
-    equipos = BD().run("select * from Equipo")
-
-    copas = competencia1.fetchall()
-    ligas = competencia2.fetchall()
-    teamLista = equipos.fetchall()
-
-    listaEquipos = teams.fetchall()
 
 
-    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs)
-
-@app.route('/admin2', methods= ['POST','GET'])
-
-def adminPartidos():
     submit = request.form.get("enviar")
     idpartido = request.form.get("idPartido")
     idequipo = request.form.get("idEquipo")
+    idliga = request.form.get("idLiga")
+    idcup = request.form.get("idCopa")
 
     if submit == "Submit1":
         match = Partido()
@@ -112,7 +98,7 @@ def adminPartidos():
 
         if letra == 'A':
 
-            match.crearPartido(eq1,eq2,golesEq1, golesEq2, None, None, None, None)
+            match.crearPartido(eq1, eq2, golesEq1, golesEq2, None, None, None, None)
 
         elif letra == 'l':
 
@@ -120,7 +106,7 @@ def adminPartidos():
 
         elif letra == 'c':
 
-            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, None, int(pito),None, None)
+            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, None, int(pito), None, None)
 
         match.setPartido()
 
@@ -162,8 +148,6 @@ def adminPartidos():
 
     elif submit == "Modificar":
 
-
-
         Match = Partido.getPartido(idpartido)
 
         team1 = request.form.get("idTeam1")
@@ -190,13 +174,10 @@ def adminPartidos():
 
         Match.updatePartido()
 
-
-
     elif submit == "Borrar":
 
         partidu = Partido.getPartido(idpartido)
         partidu.deletePartido()
-
 
     elif submit == "Modificar1":
 
@@ -217,7 +198,58 @@ def adminPartidos():
 
         Team.deleteEquipo()
 
-    return render_template("/admin.html")
+    elif submit == "Modificar2":
+
+        Lig = Liga.getLiga(idliga)
+
+        nomLig = request.form.get("nameLiga")
+        anioLig = request.form.get("Año")
+        paisLig = request.form.get("Pais")
+        termLig = request.form.get("term")
+
+
+        Lig.crearLiga(nomLig, paisLig, None,termLig,anioLig)
+
+        Lig.updateLiga()
+
+    elif submit == "Borrar2":
+
+        Lig = Liga.getLiga(idliga)
+
+        Lig.deleteLiga()
+
+    elif submit == "Modificar3":
+
+        Cup = Copa.getCopa(idcup)
+
+        nomCup = request.form.get("nameCup")
+        orgCup = request.form.get("orgCup")
+
+        Cup.crearCopa(nomCup,orgCup, None, None, None)
+
+        Cup.updateCopa()
+
+    elif submit == "Borrar3":
+
+        Cup = Copa.getCopa(idcup)
+
+        Cup.deleteCopa()
+
+    teams = BD().run("select * from Equipo;")
+    matchs = BD().run("select * from Partido;")
+    competencia1 = BD().run("select * from Copa;")
+    competencia2 = BD().run("select * from Liga;")
+    equipos = BD().run("select * from Equipo")
+
+    copas = competencia1.fetchall()
+    ligas = competencia2.fetchall()
+    teamLista = equipos.fetchall()
+
+    listaEquipos = teams.fetchall()
+
+    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs)
+
+
 
 
 if __name__ == '__main__':  # para actualizar automaticamente la pagina sin tener que cerrarla
