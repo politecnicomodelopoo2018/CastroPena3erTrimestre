@@ -85,6 +85,7 @@ class Usuario(object):
 
         u = BD().run("select * from Usuario where Nombre = '"+username+"';")
         usuario = u.fetchall()
-        user = Usuario.getUsuario(usuario["idUsuario"])
+        iduser = usuario[0]["idUsuario"]
+        user = Usuario.getUsuario(iduser)
 
         return user

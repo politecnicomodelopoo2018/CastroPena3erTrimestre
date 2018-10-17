@@ -1205,7 +1205,67 @@
 </div>
 
 
+<div>
 
+    <table>
+
+        <h3>CREAR USUARIO</h3>
+
+        <tr>
+
+            <th>Nombre</th>
+            <th>Contraseña</th>
+
+        </tr>
+
+        <form action="/admin" method="post">
+
+        <tr>
+
+            <td><input type="text" name="user"></td>
+            <td><input type="password" name="pass"></td>
+            <td><input type="submit" value="Submit5" name="enviar"></td>
+
+        </tr>
+
+        </form>
+
+    </table>
+
+
+</div>
+
+<div>
+
+    <table>
+
+        <h3>MODIFICAR CONTRASEÑA</h3>
+
+        <tr>
+
+            <th>Nombre</th>
+            <th>Contraseña</th>
+
+        </tr>
+        {%for item in Usuarios:%}
+        <form action="/admin" method="post">
+
+            <input type="hidden" name="idUsuario" value="{{item.idUsuario}}">
+
+
+            <tr>
+
+                <td><input type="text" name="user" value="{{item.Nombre}}"></td>
+                <td><input type="password" name="pass" value="{{item.Contraseña}}"></td>
+                <td><input type="submit" value="Modificar4" name="Submit"></td>
+                <td><input type="submit" value="Borrar4" name="Submit"></td>
+            </tr>
+
+        </form>
+        {%endfor%}
+    </table>
+
+</div>
 
 </body>
 </html>

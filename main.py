@@ -84,13 +84,28 @@ def loginAdmin():
 
     User = Usuario.getUsuarioPorNombre(username)
 
-    if User.nombre == username and User.contraseña == password:
+    password1 = User.setContraseña(password)
 
-        return render_template("/admin.html")
+    if User.nombre == username and User.contraseña == password1:
 
-    else:
 
-        return False
+        teams = BD().run("select * from Equipo;")
+        matchs = BD().run("select * from Partido;")
+        competencia1 = BD().run("select * from Copa;")
+        competencia2 = BD().run("select * from Liga;")
+        equipos = BD().run("select * from Equipo")
+        usuarios = BD().run("select * from Usuario")
+
+        copas = competencia1.fetchall()
+        ligas = competencia2.fetchall()
+        teamLista = equipos.fetchall()
+        users = usuarios.fetchall()
+        listaEquipos = teams.fetchall()
+
+        return render_template("/admin.html", Equipos=listaEquipos, Cups=copas, Ligues=ligas, Teams=teamLista,Partidos=matchs, Usuarios = users)
+
+
+
 
 
 @app.route('/signUp', methods=['GET', 'POST'])
@@ -106,6 +121,25 @@ def signUpAdmin():
 
     User.setUsuario()
 
+    teams = BD().run("select * from Equipo;")
+    matchs = BD().run("select * from Partido;")
+    competencia1 = BD().run("select * from Copa;")
+    competencia2 = BD().run("select * from Liga;")
+    equipos = BD().run("select * from Equipo")
+    usuarios = BD().run("select * from Usuario")
+
+    copas = competencia1.fetchall()
+    ligas = competencia2.fetchall()
+    teamLista = equipos.fetchall()
+    users = usuarios.fetchall()
+    listaEquipos = teams.fetchall()
+
+    return render_template("/login.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs, Usuarios = users)
+
+
+@app.route('/pepe', methods=['POST', 'GET'])
+def logInOSignUp():
+
     return render_template("/login.html")
 
 
@@ -119,6 +153,7 @@ def administrarPagina():
     idequipo = request.form.get("idEquipo")
     idliga = request.form.get("idLiga")
     idcup = request.form.get("idCopa")
+    idusuario = request.form.get("idUsuario")
 
     if submit == "Submit1":
         match = Partido()
@@ -180,6 +215,18 @@ def administrarPagina():
 
         copa.crearCopa(name, org, None, None, None)
         copa.setCopa()
+
+    elif submit == "Submit5":
+
+        user = Usuario()
+
+        username = request.form.get("user")
+        password = request.form.get("pass")
+
+        user.crearUsuario(username,Usuario.setContraseña(password))
+        user.setUsuario()
+
+
 
     elif submit == "Modificar":
 
@@ -270,19 +317,38 @@ def administrarPagina():
 
         Cup.deleteCopa()
 
+    elif submit == "Modificar4":
+
+        User = Usuario.getUsuario(idusuario)
+
+        nomUs = request.form.get("user")
+        contUs = request.form.get("pass")
+
+        User.crearUsuario(nomUs, contUs)
+        User.updateUsuario()
+
+    elif submit == "Borrar4":
+
+        User = Usuario.getUsuario(idusuario)
+
+        User.deleteUsuario()
+
+
     teams = BD().run("select * from Equipo;")
     matchs = BD().run("select * from Partido;")
     competencia1 = BD().run("select * from Copa;")
     competencia2 = BD().run("select * from Liga;")
-    equipos = BD().run("select * from Equipo")
+    equipos = BD().run("select * from Equipo;")
+    usuarios = BD().run("select * from Usuario;")
 
     copas = competencia1.fetchall()
     ligas = competencia2.fetchall()
     teamLista = equipos.fetchall()
-
     listaEquipos = teams.fetchall()
+    users = usuarios.fetchall()
 
-    return render_template("/login.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs)
+
+    return render_template("/login.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs, Usuarios = users)
 
 
 
