@@ -14,7 +14,7 @@
 
 </tr>
 
-<form method="post" action="/login">
+<form method="post" action="/login1">
 
 <tr>
 
@@ -24,7 +24,21 @@
 
 </tr>
 
+
 </form>
+
+
 </table>
+
+<div>
+
+    {%if error1 == '1':%}
+
+        <tr><font color="#ff0000">Error al iniciar sesion; Usuario y/o contraseña incorrecta</font></tr>
+
+    {%endif%}
+
+</div>
+
 </body>
 </html>

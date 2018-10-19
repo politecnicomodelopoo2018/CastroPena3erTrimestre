@@ -114,21 +114,21 @@ class Partido(object):
 
     def deletePartido(self):
 
-        contadorProde = BD().run("select count(*) from Prode where Partido_idPartidos = '"+str(self.id)+"';")
+        #contadorProde = BD().run("select count(*) from Prode where Partido_idPartidos = '"+str(self.id)+"';")
 
-        cont1 = None
+        # cont1 = None
+        #
+        # for item in contadorProde:
+        #
+        #     cont1 = item["count(*)"]
+        #
+        # if cont1 == 0:
 
-        for item in contadorProde:
+        BD().run("delete from Partido where idPartidos = '"+str(self.id)+"';")
 
-            cont1 = item["count(*)"]
-
-        if cont1 == 0:
-
-            BD().run("delete from Partido where idPartidos = '"+str(self.id)+"';")
-
-        else:
-
-            return False
+        # else:
+        #
+        #     return False
 
     @staticmethod
     def getPartido(unID):

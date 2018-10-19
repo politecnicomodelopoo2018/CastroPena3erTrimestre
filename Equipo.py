@@ -29,8 +29,11 @@ class Equipo(object):
 
             self.grupo = "Null"
 
-        cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', "+str(self.grupo)+");")
+            cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, "+str(participarCopa)+", '"+str(self.liga)+"', '"+self.nombre+"', "+str(self.grupo)+");")
 
+        elif self.grupo is not None:
+
+            cursor = BD().run("insert into Equipo (idEquipo, Copa_idCopa, Liga_idLiga, Nombre, Grupo) values (null, " + str(participarCopa) + ", '" + str(self.liga) + "', '" + self.nombre + "', '" + str(self.grupo) + "');")
 
         self.id = cursor.lastrowid
 
@@ -56,7 +59,7 @@ class Equipo(object):
         contadorPartido = BD().run("select count(*) from Partido where idEquipo1 = '"+str(self.id)+"';")
         contadorPartido1 = BD().run("select count(*) from Partido where idEquipo2 = '"+str(self.id)+"';")
 
-        contadorHinchas = BD().run("select count(*) from Usuario where Equipo_idEquipo = '" + str(self.id) + "';")
+        # contadorHinchas = BD().run("select count(*) from Usuario where Equipo_idEquipo = '" + str(self.id) + "';")
 
         cont1 = None
 
@@ -68,13 +71,13 @@ class Equipo(object):
         for item in contadorPartido1:
             cont2 = item["count(*)"]
 
-        cont3 = None
-
-        for item in contadorHinchas:
-
-            cont3 = item["count(*)"]
-
-        if cont1 == 0 and cont2 == 0 and cont3 == 0:
+        # cont3 = None
+        #
+        # for item in contadorHinchas:
+        #
+        #     cont3 = item["count(*)"]
+        #
+        if cont1 == 0 and cont2 == 0:
 
             BD().run("delete from DatosLiga Where Equipo_idEquipo = '" + str(self.id) + "';")
             BD().run("delete from DatosCopa Where Equipo_idEquipo = '" + str(self.id) + "';")

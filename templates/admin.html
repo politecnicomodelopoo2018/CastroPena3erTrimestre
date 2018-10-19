@@ -1235,6 +1235,7 @@
 
 </div>
 
+
 <div>
 
     <table>
@@ -1257,13 +1258,23 @@
 
                 <td><input type="text" name="user" value="{{item.Nombre}}"></td>
                 <td><input type="password" name="pass" value="{{item.Contraseña}}"></td>
-                <td><input type="submit" value="Modificar4" name="Submit"></td>
-                <td><input type="submit" value="Borrar4" name="Submit"></td>
+                <td><input type="submit" value="Modificar4" name="enviar"></td>
+                <td><input type="submit" value="Borrar4" name="enviar"></td>
             </tr>
 
         </form>
         {%endfor%}
     </table>
+
+</div>
+
+<div>
+    <a href="/" >Volver al menu</a>
+
+</div>
+
+<div>
+    <a href="/logout" >logOut</a>
 
 </div>
 

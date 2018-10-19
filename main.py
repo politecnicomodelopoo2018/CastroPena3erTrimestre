@@ -23,6 +23,8 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route('/')
 def Index():
+
+
     return render_template("/menu.html")
 
 @app.route('/laLiga')
@@ -75,34 +77,62 @@ def Uefa():
     return render_template("/uefa.html")
 
 
+
 @app.route('/login', methods=['GET','POST'])
+def login1():
+    if 'username' in session:
+        return redirect("/admin")
+
+    userMal = request.args.get("error")
+    return render_template("/login.html", error1=userMal)
+
+
+@app.route('/logout')
+def logout():
+   # remove the username from the session if it is there
+   session.pop('username', None)
+   return redirect('/')
+
+
+@app.route('/login1', methods=['GET','POST'])
 def loginAdmin():
 
     #submit = request.form.get("Enviar")
     username = request.form.get("nick")
     password = request.form.get("pass")
 
-    User = Usuario.getUsuarioPorNombre(username)
+    try:
 
-    password1 = User.setContraseña(password)
+        User = Usuario.getUsuarioPorNombre(username)
 
-    if User.nombre == username and User.contraseña == password1:
+        password1 = User.setContraseña(password)
 
+        if User.nombre == username and User.contraseña == password1:
+            session['username'] = username
+            return redirect("/admin")
 
-        teams = BD().run("select * from Equipo;")
-        matchs = BD().run("select * from Partido;")
-        competencia1 = BD().run("select * from Copa;")
-        competencia2 = BD().run("select * from Liga;")
-        equipos = BD().run("select * from Equipo")
-        usuarios = BD().run("select * from Usuario")
+        else:
 
-        copas = competencia1.fetchall()
-        ligas = competencia2.fetchall()
-        teamLista = equipos.fetchall()
-        users = usuarios.fetchall()
-        listaEquipos = teams.fetchall()
+            return redirect("/login?error=1")
 
-        return render_template("/admin.html", Equipos=listaEquipos, Cups=copas, Ligues=ligas, Teams=teamLista,Partidos=matchs, Usuarios = users)
+    except:
+
+        return redirect("/login?error=1")
+
+        # teams = BD().run("select * from Equipo;")
+        # matchs = BD().run("select * from Partido;")
+        # competencia1 = BD().run("select * from Copa;")
+        # competencia2 = BD().run("select * from Liga;")
+        # equipos = BD().run("select * from Equipo")
+        # usuarios = BD().run("select * from Usuario")
+        #
+        # copas = competencia1.fetchall()
+        # ligas = competencia2.fetchall()
+        # teamLista = equipos.fetchall()
+        # users = usuarios.fetchall()
+        # listaEquipos = teams.fetchall()
+        #
+        # return render_template("/admin.html", Equipos=listaEquipos, Cups=copas, Ligues=ligas, Teams=teamLista,Partidos=matchs, Usuarios = users)
 
 
 
@@ -134,7 +164,7 @@ def signUpAdmin():
     users = usuarios.fetchall()
     listaEquipos = teams.fetchall()
 
-    return render_template("/login.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs, Usuarios = users)
+    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs, Usuarios = users)
 
 
 @app.route('/pepe', methods=['POST', 'GET'])
@@ -145,7 +175,8 @@ def logInOSignUp():
 
 @app.route('/admin', methods=['POST', 'GET'])
 def administrarPagina():
-
+    if not 'username' in session:
+        return redirect("/login")
 
 
     submit = request.form.get("enviar")
@@ -189,6 +220,10 @@ def administrarPagina():
         ligue = request.form.get("Liga")
         grupe = request.form.get("Grupo")
 
+        if grupe == "Null":
+
+            grupe = None
+
         team.crearEquipo(name, ligue, cup, grupe)
 
         team.setEquipo()
@@ -225,8 +260,6 @@ def administrarPagina():
 
         user.crearUsuario(username,Usuario.setContraseña(password))
         user.setUsuario()
-
-
 
     elif submit == "Modificar":
 
@@ -324,7 +357,9 @@ def administrarPagina():
         nomUs = request.form.get("user")
         contUs = request.form.get("pass")
 
-        User.crearUsuario(nomUs, contUs)
+        contra = Usuario.setContraseña(contUs)
+
+        User.crearUsuario(nomUs, contra)
         User.updateUsuario()
 
     elif submit == "Borrar4":
@@ -348,7 +383,7 @@ def administrarPagina():
     users = usuarios.fetchall()
 
 
-    return render_template("/login.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs, Usuarios = users)
+    return render_template("/admin.html", Equipos = listaEquipos, Cups = copas, Ligues = ligas, Teams = teamLista, Partidos = matchs, Usuarios = users)
 
 
 
