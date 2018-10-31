@@ -3,11 +3,14 @@ from Copa import *
 from Partido import *
 from Equipo import *
 from Usuario import *
+from Fecha import *
 from Prode import *
 from datosCopa import *
 from BD import *
 from flask import *
-
+from datetime import datetime
+import time
+import _strptime
 
 import pymysql
 
@@ -34,19 +37,39 @@ def laLiga():
 
     return render_template("/laLiga.html", equiposLaLiga = lista)
 
-@app.route('/superliga')
+@app.route('/superliga', methods =['GET','POST'])
 def Superliga():
 
-    b = BD().run("select * from Equipo join DatosLiga on DatosLiga.Equipo_idEquipo = Equipo.idEquipo where DatosLiga.Liga_idLiga = 1 order by Puntos DESC")
+    nro = 1
+
+    submit = request.form.get("submit")
+
+    if submit == "Ver Fecha":
+
+        nro = request.form.get("nroFecha")
+
+    b = BD().run("select * from Equipo join DatosLiga on DatosLiga.Equipo_idEquipo = Equipo.idEquipo where DatosLiga.Liga_idLiga = 1 order by Puntos DESC;")
+    #
+    f = BD().run("select distinct(NroFecha) as NroFecha from Partido where Liga_idLiga is not null order by NroFecha ASC;")
+
+    fixture = BD().run("select * from Partido where Liga_idLiga is not null;")
 
     lista = b.fetchall()
+    #
+    lista2 = f.fetchall()
 
-    return render_template("/superliga.html", equiposSuperliga = lista)
+    lista3 = fixture.fetchall()
+
+    return render_template("/superliga.html", equiposSuperliga = lista, fechas = lista2, fixture = lista3, nroF = int(nro))
 
 @app.route('/libertadores')
 def Libertadores():
 
     z = BD().run("select * from Equipo join DatosCopa on DatosCopa.Equipo_idEquipo = Equipo.idEquipo where DatosCopa.Copa_idCopa = 1 order by Puntos DESC")
+
+    partidosLib = BD().run("select * from Partido where Copa_idCopa is not null")
+
+    partidos = partidosLib.fetchall()
 
     grupeA = BD().run("Call pito('A');")
     grupeB = BD().run("Call pito('B');")
@@ -70,7 +93,7 @@ def Libertadores():
     lista = z.fetchall()
 
 
-    return render_template("/libertadores.html", equiposCopaLib = lista, A = listaA, B = listaB, C = listaC, D= listaD, E = listaE, F = listaF, G = listaG, H = listaH)
+    return render_template("/libertadores.html", equiposCopaLib = lista, A = listaA, B = listaB, C = listaC, D= listaD, E = listaE, F = listaF, G = listaG, H = listaH, partidos = partidos)
 
 @app.route('/uefa')
 def Uefa():
@@ -193,21 +216,39 @@ def administrarPagina():
         golesEq1 = request.form.get("golesEq1")
         golesEq2 = request.form.get("golesEq2")
         competencia = request.form.get("competencia")
+        nrofecha = request.form.get("nroFecha")
+        day = request.form.get("periodo")
+        horario = request.form.get("horario")
+        instancia = request.form.get("instancia")
 
-        pito = competencia[1]
+        dia = datetime.strptime(day, "%m/%d/%Y").strftime("%d/%m/%Y")
+
+
+
+        nro = competencia[1]
         letra = competencia[0]
+
+
+        if golesEq1 == "None" and golesEq2 == "None":
+
+            golesEq1 = "Null"
+            golesEq2 = "Null"
+
+
+
+
 
         if letra == 'A':
 
-            match.crearPartido(eq1, eq2, golesEq1, golesEq2, None, None, None, None)
+            match.crearPartido(eq1, eq2, golesEq1, golesEq2, None, None, instancia, nrofecha, dia, horario)
 
         elif letra == 'l':
 
-            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, int(pito), None, None, None)
+            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, int(nro), None, instancia, nrofecha,dia,horario)
 
         elif letra == 'c':
 
-            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, None, int(pito), None, None)
+            match.crearPartido(int(eq1), int(eq2), golesEq1, golesEq2, None, int(nro), instancia, nrofecha,dia,horario)
 
         match.setPartido()
 
@@ -261,6 +302,21 @@ def administrarPagina():
         user.crearUsuario(username,Usuario.setContraseña(password))
         user.setUsuario()
 
+    elif submit == "Submit6":
+
+        Fech = Fecha()
+
+        nro = request.form.get("nroFecha")
+        dia = request.form.get("periodo")
+        horario = request.form.get("Horario")
+        eqL = request.form.get("eqLoc")
+        eqV = request.form.get("eqVis")
+
+        Fech.crearFecha(nro,eqL, eqV,dia, horario)
+
+        Fech.setFecha()
+
+
     elif submit == "Modificar":
 
         Match = Partido.getPartido(idpartido)
@@ -269,23 +325,33 @@ def administrarPagina():
         team2 = request.form.get("idTeam2")
         golEq1 = request.form.get("golesEq1")
         golEq2 = request.form.get("golesEq2")
-
+        nrofecha1 = request.form.get("nroFecha")
+        dia1 = request.form.get("periodo")
+        horario1 = request.form.get("horario")
+        instancia1 = request.form.get("instancia")
         competencia = request.form.get("competencia")
+
+        if golEq1 == "None" and golEq2 == "None":
+
+            golEq1 = 'Null'
+            golEq2 = 'Null'
+
+
 
         pito = competencia[1]
         letra = competencia[0]
 
         if letra == 'A':
 
-            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, None, None, None, None)
+            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, None, None, instancia1, nrofecha1, dia1, horario1)
 
         elif letra == 'l':
 
-            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, int(pito), None, None, None)
+            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, int(pito), None, instancia1, nrofecha1, dia1, horario1)
 
         elif letra == 'c':
 
-            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, None, int(pito), None, None)
+            Match.crearPartido(int(team1), int(team2), golEq1, golEq2, None, int(pito), instancia1, nrofecha1, dia1, horario1)
 
         Match.updatePartido()
 
@@ -380,6 +446,7 @@ def administrarPagina():
     ligas = competencia2.fetchall()
     teamLista = equipos.fetchall()
     listaEquipos = teams.fetchall()
+
     users = usuarios.fetchall()
 
 

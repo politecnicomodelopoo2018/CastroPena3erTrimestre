@@ -26,7 +26,13 @@
 	</style>
 
 </head>
+
+<script src="/scripts/snippet-javascript-console.min.js?v=1"></script>
+
+
 <body>
+
+<div>
 
 <h3>
 	SUPERLIGA ARGENTINA
@@ -69,6 +75,117 @@
 {% endfor %}
 
 </table>
+
+</div>
+
+<div>
+
+<form method="post" action='/superliga'>
+
+	<h3>Fixture<br>Fecha
+
+
+		<select name="nroFecha">
+			{%for item in fechas:%}
+
+				{%if item.NroFecha == nroF%}
+
+					<option value="{{item.NroFecha}}" selected>{{item.NroFecha}}</option>
+
+				{%else%}
+
+					<option value="{{item.NroFecha}}" >{{item.NroFecha}}</option>
+
+				{%endif%}
+			{%endfor%}
+		</select>
+		<input type="submit" name="submit" value="Ver Fecha">
+	</h3>
+
+</form>
+
+
+
+	<table>
+
+		<tr>
+
+			<th>Dia</th>
+			<th>Horario</th>
+			<th>Local</th>
+			<th> </th>
+			<th> </th>
+			<th> </th>
+			<th>Visitante</th>
+
+
+		</tr>
+
+		{%for item in fixture%}
+
+			{%if item.NroFecha == nroF%}
+
+					<tr>
+
+						<td>{{item.Dia}}</td>
+						<td>{{item.Horario}}</td>
+					{%for eq in equiposSuperliga:%}
+
+						{%if item.idEquipo1 == eq.idEquipo%}
+
+							<td>{{eq.Nombre}}</td>
+
+						{%endif%}
+					{%endfor%}
+
+					{%if item.GolesEquipo1 == None%}
+
+						<td>   </td>
+
+					{%else%}
+
+						<td>{{item.GolesEquipo1}}</td>
+
+					{%endif%}
+
+						<td>VS</td>
+
+					{%if item.GolesEquipo2 == None%}
+
+						<td>   </td>
+
+					{%else%}
+
+						<td>{{item.GolesEquipo2}}</td>
+
+					{%endif%}
+
+					{%for eq in equiposSuperliga:%}
+						{%if item.idEquipo2 == eq.idEquipo%}
+
+							<td>{{eq.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+
+
+					</tr>
+
+
+
+
+
+			{%endif%}
+
+		{%endfor%}
+
+	</table>
+
+</div>
+
+
 
 <div>
 

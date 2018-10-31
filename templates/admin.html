@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <head>
     <title>Partidos</title>
+
+        <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>jQuery UI Datepicker - Default functionality</title>
+          <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+          <link rel="stylesheet" href="/resources/demos/style.css">
+          <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+          <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+          <script>
+          $( function() {
+            $( "[class = datepicker]" ).datepicker();
+          } );
+
+
+  </script>
+
 </head>
 <body>
 <div>
@@ -17,6 +33,10 @@
     <th><strong>Goles</strong></th>
     <th><strong>Equipo 2</strong></th>
     <th><strong>Goles</strong></th>
+    <th><strong>Fecha</strong></th>
+    <th><strong>Instancia</strong></th>
+    <th><strong>Dia</strong></th>
+    <th><strong>Horario</strong></th>
 
 
 
@@ -26,87 +46,128 @@
 
         <tr>
 
-    <td>
+            <td>
 
-        <select name="competencia">
+                <select name="competencia">
 
-            {%for item in Cups:%}
-
-
-            <option value="c{{item.idCopa}}"> {{item["Nombre"]}} </option>
-
-            {%endfor%}
-
-            {%for item in Ligues:%}
-
-            <option value="l{{item.idLiga}}"> {{item["Nombre"]}} </option>
-
-            {%endfor%}
-
-            <option value="Amistoso"> Amistoso </option>
-
-        </select>
-
-    </td>
+                    {%for item in Cups:%}
 
 
+                         <option value="c{{item.idCopa}}"> {{item["Nombre"]}} </option>
 
-    <td>
-        <select name="Eq1">
+                    {%endfor%}
 
-            {% for item in Equipos: %}
+                    {%for item in Ligues:%}
 
-                <option value= "{{item.idEquipo}}">{{item["Nombre"]}}</option>
+                        <option value="l{{item.idLiga}}"> {{item["Nombre"]}} </option>
 
-            {% endfor %}
+                    {%endfor%}
 
-        </select>
-    </td>
+                    <option value="Amistoso"> Amistoso </option>
+
+                </select>
+
+            </td>
 
 
 
+            <td>
+                <select name="Eq1">
 
-    <td>
-        <select name="golesEq1">
+                    {% for item in Equipos: %}
 
-            {% for item in range(10) %}
-                <option value= "{{item}}" >{{item}}</option>
-            {% endfor %}
+                        <option value= "{{item.idEquipo}}">{{item["Nombre"]}}</option>
 
-        </select>
-    </td>
+                    {% endfor %}
+
+                </select>
+            </td>
 
 
 
 
-    <td>
-        <select  name="Eq2">
+            <td>
+                <select name="golesEq1">
 
-            {% for item in Equipos %}
-                <option value= "{{item.idEquipo}}">{{item["Nombre"]}}</option>
-            {% endfor %}
+                        <option value= "Null" >-</option>
 
-        </select>
-    </td>
+                    {% for item in range(10) %}
+                        <option value= "{{item}}" >{{item}}</option>
+                    {% endfor %}
+
+                </select>
+            </td>
 
 
 
 
-    <td>
-        <select name="golesEq2">
+            <td>
+                <select  name="Eq2">
 
-            {% for item in range(10) %}
-                <option value= "{{item}}" >{{item}}</option>
-            {% endfor %}
+                    {% for item in Equipos %}
+                        <option value= "{{item.idEquipo}}">{{item["Nombre"]}}</option>
+                    {% endfor %}
 
-        </select>
-    </td>
+                </select>
+            </td>
 
-    <td>
 
-    <input type="submit" value="Submit1" name="enviar">
 
-    </td>
+
+            <td>
+                <select name="golesEq2">
+
+                        <option value= "Null" >-</option>
+
+                    {% for item in range(10) %}
+                        <option value= "{{item}}" >{{item}}</option>
+                    {% endfor %}
+
+                </select>
+            </td>
+
+            <td>
+
+                <select name="nroFecha">
+
+                    <option value="None" selected>-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <select name="instancia">
+
+                    <option value="Null">-</option>
+                    <option value="Fase">Fase de Grupos</option>
+                    <option value="Octavos">Octavos de Final</option>
+                    <option value="Cuartos">Cuartos de Final</option>
+                    <option value="Semi">Semifinal</option>
+                    <option value="Final">Final</option>
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <input name="periodo" class="datepicker" value="Fecha" type="text">
+
+            </td>
+
+            <td>
+
+                <input type="text" name="horario" value="HH:MM" >
+
+            </td>
+
+            <td>
+
+                <input type="submit" value="Submit1" name="enviar">
+
+            </td>
 
     </tr>
 
@@ -680,6 +741,8 @@
 
 </div>
 
+
+
 <div>
 
     <h3>MODIFICAR PARTIDO</h3>
@@ -694,6 +757,11 @@
             <th><strong>Equipo 2</strong></th>
             <th><strong>Goles</strong></th>
             <th><strong>Competencia</strong></th>
+            <th><strong>Nro Fecha</strong></th>
+            <th><strong>Instancia</strong></th>
+            <th><strong>Dia</strong></th>
+            <th><strong>Horario</strong></th>
+
 
 
         </tr>
@@ -712,7 +780,7 @@
 
                     {%if Eq.idEquipo == Match.idEquipo1:%}
 
-                            <option value="{{Match.idEquipo1}}" selected >{{Eq.Nombre}}(Equipo Uno)</option>
+                            <option value="{{Match.idEquipo1}}" selected >{{Eq.Nombre}}</option>
 
                     {%else:%}
 
@@ -728,7 +796,23 @@
 
             <td>
 
-                <input type="text" name="golesEq1" value="{{Match.GolesEquipo1}}" >
+                <select name="golesEq1" style="width:60px">
+
+                    <option value="{{Match.GolesEquipo1}}" selected>{{Match.GolesEquipo1}}</option>
+
+                    {%for cont in range(10)%}
+
+                        {%if cont != Match.GolesEquipo1%}
+
+                        <option value="{{cont}}">{{cont}}</option>
+
+                        {%endif%}
+
+                    {%endfor%}
+
+                </select>
+
+
 
             </td>
 
@@ -740,7 +824,7 @@
 
                     {%if Eq.idEquipo == Match.idEquipo2:%}
 
-                            <option value="{{Match.idEquipo2}}" selected >{{Eq.Nombre}}(Equipo Dos)</option>
+                            <option value="{{Match.idEquipo2}}" selected >{{Eq.Nombre}}</option>
 
                     {%else:%}
 
@@ -756,7 +840,23 @@
 
             <td>
 
-                <input type="text" name="golesEq2" value="{{Match.GolesEquipo2}}" >
+                <select name="golesEq2" style="width:60px">
+
+                    <option value="{{Match.GolesEquipo2}}" selected>{{Match.GolesEquipo2}}</option>
+                    
+                    {%for cont in range(10)%}
+
+                        {%if cont != Match.GolesEquipo2%}
+
+                        <option value="{{cont}}">{{cont}}</option>
+
+                        {%endif%}
+
+                    {%endfor%}
+
+                </select>
+
+
 
             </td>
 
@@ -811,6 +911,84 @@
 
             <td>
 
+
+
+                <select name="nroFecha" style="width:60px">
+
+                    <option value="{{Match.NroFecha}}">{{Match.NroFecha}}</option>
+
+                    <option value="None">-</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+
+                </select>
+
+            </td>
+
+            <td>
+
+
+
+                <select name="instancia">
+
+                    <option value="{{Match.Instancia}}" selected>{{Match.Instancia}}</option>
+
+                    {%if Match.Instancia != 'Null'%}
+
+                    <option value="Null">-</option>
+
+                    {%endif%}
+
+                    {%if Match.Instancia != 'Fase'%}
+
+                    <option value="Fase">Fase de Grupos</option>
+
+                    {%endif%}
+
+                    {%if Match.Instancia != 'Octavos'%}
+
+                    <option value="Octavos">Octavos de Final</option>
+
+                    {%endif%}
+
+                    {%if Match.Instancia != 'Cuartos'%}
+
+                    <option value="Cuartos">Cuartos de Final</option>
+
+                    {%endif%}
+
+                    {%if Match.Instancia != 'Semi'%}
+
+                    <option value="Semi">Semifinal</option>
+
+                    {%endif%}
+
+                    {%if Match.Instancia != 'Final'%}
+
+                     <option value="Final">Final</option>
+
+                    {%endif%}
+
+
+
+
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <input name="periodo" class="datepicker" value="{{Match.Dia}}" type="text">
+
+            </td>
+            <td>
+
+                <input type="text" name="horario" value="{{Match.Horario}}">
+
+            </td>
+
+
+            <td>
+
                 <input type="submit" value="Modificar" name="enviar">
 
             </td>
@@ -835,6 +1013,9 @@
 
     </table>
 </div>
+
+
+
 
 <div>
 
@@ -1267,6 +1448,8 @@
     </table>
 
 </div>
+
+
 
 <div>
     <a href="/" >Volver al menu</a>

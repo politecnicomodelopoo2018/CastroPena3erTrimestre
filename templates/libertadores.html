@@ -8,19 +8,84 @@
 
 	<style>
 
-		div#div1 {
 
-			width:45%
+		#grupos {
+			width: 45%;
+			height: 450px;
+			float: left;
+			color: black;
+
+			text-align: center;
+			border: 1px solid black;
+			margin-left: 10px;
+			margin-right:10px;
+			margin-top: 10px;
+			padding-right:10px;
+			padding-left:10px;
+
 
 		}
 
+		#cruces {
+
+			width:93%;
+			height:500px;
+			border: 1px solid black;
+			margin-left: 10px;
+			margin-right:10px;
+			margin-top: 10px;
+			padding-right:10px;
+			padding-left:10px;
+			float:left;
+
+
+		}
+
+
 		table#grupo1 {
-    		border-collapse: collapse;
-    		width: 45%;
-    		text-aling: left;
+
+			width: 100%;
+			border-collapse: collapse;
+			text-aling: center;
 		}
 
 		table#grupo2 {
+
+			width: 100%;
+			border-collapse: collapse;
+			text-aling: center;
+		}
+
+
+		table#grupo3 {
+
+    		width: 100%;
+			border-collapse: collapse;
+			text-aling: center;
+
+		}
+		table#grupo4 {
+    		border-collapse: collapse;
+    		width: 45%;
+
+		}
+		table#grupo5 {
+    		border-collapse: collapse;
+    		width: 45%;
+			text-aling: left
+
+		}
+		table#grupo6 {
+    		border-collapse: collapse;
+    		width: 45%;
+
+		}
+		table#grupo7 {
+    		border-collapse: collapse;
+    		width: 45%;
+			text-aling: left
+		}
+		table#grupo8 {
     		border-collapse: collapse;
     		width: 45%;
 
@@ -48,33 +113,29 @@
 
 <h3><strong>COPA LIBERTADORES</strong></h3>
 
-<div id="div1" align="left">
+{%if A:%}
+<div id="grupos">
 
-<span>
+	<table id="grupo1">
 
 		<td><strong>GRUPO A</strong></td>
+		<tr>
 
-</span>
+			<th><strong>Equipos</strong></th>
+			<th><strong>Ptos</strong></th>
+			<th><strong>PJ</strong></th>
+			<th><strong>PG</strong></th>
+			<th><strong>PP</strong></th>
+			<th><strong>PE</strong></th>
+			<th><strong>GF</strong></th>
+			<th><strong>GC</strong></th>
+			<th><strong>DG</strong></th>
 
-<table id="grupo1" align="left">
-
-
-	<tr>
-
-		<th><strong>Equipos</strong></th>
-		<th><strong>Ptos</strong></th>
-		<th><strong>PJ</strong></th>
-		<th><strong>PG</strong></th>
-		<th><strong>PP</strong></th>
-		<th><strong>PE</strong></th>
-		<th><strong>GF</strong></th>
-		<th><strong>GC</strong></th>
-		<th><strong>DG</strong></th>
-
-	</tr>
+		</tr>
 
 
-{% for item in listaA%}
+
+{% for item in A%}
 
 	{% if item["Equipo_idEquipo"] == A[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == A[1]["Equipo_idEquipo"]:%}
 	<tr>
@@ -121,11 +182,97 @@
 
 </table>
 
+	<div><h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3></div>
+
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado"%}
+		<tr>
+					{%for eq in A%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in A%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+	<br>
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado"%}
+
+				<tr>
+					{%for eq in A%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in A%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+
+						{%endif%}
+
+				{%endfor%}
+				</tr>
+
+			<br>
+		{%endif%}
+	{%endfor%}
+
+
+
+
 </div>
+{%endif%}
 
-<div id="div2" align="right">
+{%if B%}
+<div id="grupos">
 
-<table id ="grupo2" align="right">
+
+
+<table id ="grupo2">
 
 	<tr>
 
@@ -151,7 +298,7 @@
 	</tr>
 
 
-{% for item in listaB%}
+{% for item in B%}
 
 
 	{% if item["Equipo_idEquipo"] == B[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == B[1]["Equipo_idEquipo"]:%}
@@ -200,9 +347,95 @@
 
 </table >
 
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in B%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in B%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in B%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in B%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+				</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+
 </div>
+{%endif%}
+
+{%if C%}
+<div id="grupos">
 
 <table id = "grupo3">
+
+
 
 	<tr>
 
@@ -228,8 +461,8 @@
 	</tr>
 
 
-{% for item in listaC%}
 
+{% for item in C%}
 
 	{% if item["Equipo_idEquipo"] == C[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == C[1]["Equipo_idEquipo"]:%}
 	<tr>
@@ -278,7 +511,93 @@
 
 </table>
 
-<table id = "grupo4">
+<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in C%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in C%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado" and match.Instancias == "Fase" %}
+		<tr>
+					{%for eq in C%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in C%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+				</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+
+</div>
+{%endif%}
+
+{%if D%}
+<div id="grupos">
+
+<table id = "grupo4" align="right">
+{% for item in D%}
 
 	<tr>
 
@@ -304,7 +623,6 @@
 	</tr>
 
 
-{% for item in listaD%}
 
 
 	{% if item["Equipo_idEquipo"] == D[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == D[1]["Equipo_idEquipo"]:%}
@@ -354,8 +672,90 @@
 
 </table>
 
-<table id = "grupo5">
+<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in D%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in D%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in D%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in D%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+				</tr>
+
+	{%endif%}
+	{%endfor%}
+</div>
+{%endif%}
+
+{%if E%}
+<div id="grupos">
+
+<table id = "grupo5">
+{% for item in E%}
 	<tr>
 
 		<td><strong>GRUPO E</strong></td>
@@ -380,7 +780,7 @@
 	</tr>
 
 
-{% for item in listaE%}
+
 
 
 	{% if item["Equipo_idEquipo"] == E[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == E[1]["Equipo_idEquipo"]:%}
@@ -430,8 +830,91 @@
 
 </table>
 
-<table id = "grupo6">
+<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in E%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in E%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in E%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in E%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+
+						{%endif%}
+						<br>
+				{%endfor%}
+				</tr>
+
+	{%endif%}
+	{%endfor%}
+
+</div>
+{%endif%}
+
+{%if F%}
+<div id="grupos">
+
+<table id = "grupo6">
+{% for item in F%}
 	<tr>
 
 		<td><strong>GRUPO F</strong></td>
@@ -456,7 +939,7 @@
 	</tr>
 
 
-{% for item in listaF%}
+
 
 
 	{% if item["Equipo_idEquipo"] == F[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == F[1]["Equipo_idEquipo"]:%}
@@ -506,7 +989,95 @@
 
 </table>
 
+<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in F%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in F%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in F%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in F%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+				</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+
+</div>
+{%endif%}
+
+{%if G%}
+<div id="grupos">
+
+
+
 <table id = "grupo7">
+
 
 	<tr>
 
@@ -532,8 +1103,8 @@
 	</tr>
 
 
-{% for item in listaG%}
 
+{% for item in G%}
 
 	{% if item["Equipo_idEquipo"] == G[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == G[1]["Equipo_idEquipo"]:%}
 	<tr>
@@ -581,6 +1152,91 @@
 
 </table>
 
+<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in G%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in G%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in G%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in G%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+				</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+
+</div>
+{%endif%}
+
+{%if H%}
+<div id="grupos">
+
 <table id = "grupo8">
 
 	<tr>
@@ -607,8 +1263,8 @@
 	</tr>
 
 
-{% for item in listaH%}
 
+{% for item in H%}
 
 	{% if item["Equipo_idEquipo"] == H[0]["Equipo_idEquipo"] or item["Equipo_idEquipo"] == H[1]["Equipo_idEquipo"]:%}
 	<tr>
@@ -657,7 +1313,327 @@
 
 </table>
 
-<div>
+<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in H%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in H%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>{{match.GolesEquipo1}}</td>
+
+									<td>VS</td>
+
+									<td>{{match.GolesEquipo2}}</td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+		</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
+
+	{%for match in partidos%}
+		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		<tr>
+					{%for eq in H%}
+						{%if match.idEquipo1 == eq.idEquipo%}
+
+							{%for eq1 in H%}
+
+								{% if match.idEquipo2 == eq1.idEquipo%}
+
+									<td>{{match.Dia}}</td>
+
+									<td>{{match.Horario}}</td>
+
+									<td>{{eq.Nombre}}</td>
+
+									<td>  </td>
+
+									<td>VS</td>
+
+									<td>  </td>
+
+									<td>{{eq1.Nombre}}</td>
+
+								{%endif%}
+
+							{%endfor%}
+							<br>
+						{%endif%}
+
+				{%endfor%}
+				</tr>
+
+	{%endif%}
+	{%endfor%}
+
+
+
+</div>
+{%endif%}
+
+<div id="cruces">
+
+
+
+	<div id="oct" style="float:left;border: 1px solid black; margin-top:10px;margin-right:10px;height:95%">
+		<h3>OCTAVOS DE FINAL</h3>
+
+		{%for match in partidos%}
+				{%if match.Instancia == 'Octavos'%}
+
+				<tr>
+
+					<td>{{match.Dia}}</td>
+					<td>{{match.Horario}}</td>
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo1%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+					{%if match.GolesEquipo1 == None and match.GolesEquipo2 == None%}
+
+						<td>  VS  </td>
+
+					{%else%}
+
+						<td>{{match.GolesEquipo1}}</td>
+						<td>{{match.GolesEquipo2}}</td>
+
+					{%endif%}
+
+
+
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo2%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+
+
+				</tr>
+				<br>
+				{%endif%}
+
+		{%endfor%}
+
+	</div>
+
+
+
+
+	<div id="cuar" style="float:left;border: 1px solid black; margin-top:10px;margin-right:10px;height:60%">
+
+		<h3>CUARTOS DE FINAL</h3>
+
+			{%for match in partidos%}
+				{%if match.Instancia == 'Cuartos'%}
+
+
+				<tr>
+
+					<td>{{match.Dia}}</td>
+					<td>{{match.Horario}}</td>
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo1%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+					{%if match.GolesEquipo1 == None and match.GolesEquipo2 == None%}
+
+						<td>  VS  </td>
+
+					{%else%}
+
+						<td>{{match.GolesEquipo1}}</td>
+						<td>{{match.GolesEquipo2}}</td>
+
+					{%endif%}
+
+
+
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo2%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+
+
+				</tr>
+
+
+				{%endif%}
+
+			{%endfor%}
+
+	</div>
+
+
+
+
+	<div id="semi" style="float:left;border: 1px solid black; margin-top:10px;margin-right:10px;height:45%">
+
+
+		<h3>SEMIFINALES</h3>
+
+			{%for match in partidos%}
+				{%if match.Instancia == 'Semi'%}
+
+
+				<tr>
+
+					<td>{{match.Dia}}</td>
+					<td>{{match.Horario}}</td>
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo1%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+					{%if match.GolesEquipo1 == None and match.GolesEquipo2 == None%}
+
+						<td>  VS  </td>
+
+					{%else%}
+
+						<td>{{match.GolesEquipo1}}</td>
+						<td>{{match.GolesEquipo2}}</td>
+
+					{%endif%}
+
+
+
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo2%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+
+
+				</tr>
+
+
+				{%endif%}
+
+			{%endfor%}
+
+
+
+	</div>
+
+
+
+
+		<div id="final" style="float:left;border: 1px solid black; margin-top:10px;margin-right:10px;height:30%">
+
+			<h3>FINAL</h3>
+
+			{%for match in partidos%}
+			{%if match.Instancia == 'Final'%}
+
+				<tr>
+
+					<td>{{match.Dia}}</td>
+					<td>{{match.Horario}}</td>
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo1%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+					{%if match.GolesEquipo1 == None and match.GolesEquipo2 == None%}
+
+						<td>  VS  </td>
+
+					{%else%}
+
+						<td>{{match.GolesEquipo1}}</td>
+						<td>{{match.GolesEquipo2}}</td>
+
+					{%endif%}
+
+
+
+					{%for eqs in equiposCopaLib%}
+
+						{%if eqs.idEquipo == match.idEquipo2%}
+
+							<td>{{eqs.Nombre}}</td>
+
+						{%endif%}
+
+					{%endfor%}
+
+
+
+				</tr>
+
+			{%endif%}
+		{%endfor%}
+
+		</div>
+
+
+</div>
+
+
+<div style="float:left;">
 
 	<a href="/">Volver al Menu</a>
 
