@@ -22,7 +22,7 @@
 			margin-top: 10px;
 			padding-right:10px;
 			padding-left:10px;
-
+			background-color: #99ff99;
 
 		}
 
@@ -37,7 +37,35 @@
 			padding-right:10px;
 			padding-left:10px;
 			float:left;
+			background-color: #99ff99;
 
+
+		}
+
+		#cruces div {
+
+		width:400px
+
+		}
+
+		#cruces div h4{
+
+		text-align:center;
+		background-color:green;
+		color:white;
+		margin-right: 20px;
+
+		}
+
+		#cruces h3 {
+
+			    background: green;
+				color: white;
+				height: 40px;
+				margin-top: 0px;
+				margin-right: 20px;
+				text-align: left;
+				padding-top: 15px;
 
 		}
 
@@ -103,15 +131,51 @@
 		tr:nth-child(even){background-color: #f2f2f2}
 
 
+		ul {
+			list-style-type: none;
+			margin-left: 10px;
+			padding-left: 10px;
+			overflow: hidden;
+			background-color: #333;
+		}
+
+		li {
+			float: left;
+		}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		li a:hover:not(.active) {
+			background-color: #111;
+		}
+
+		.active {
+			background-color: #4CAF50;
+		}
 
 
 	</style>
 
 
 </head>
-<body>
+<body bgcolor="#ffffe6">
 
-<h3><strong>COPA LIBERTADORES</strong></h3>
+
+
+<ul>
+  <li><a class="active">COPA LIBERTADORES</a></li>
+  <li><a  href="/">Home</a></li>
+  <li><a href="/superliga">Superliga</a></li>
+  <li><a href="/libertadores">Libertadores</a></li>
+
+</ul>
+
 
 {%if A:%}
 <div id="grupos">
@@ -159,15 +223,15 @@
 	<tr>
 
 
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 
 	</tr>
@@ -1400,14 +1464,15 @@
 
 
 	<div id="oct" style="float:left;border: 1px solid black; margin-top:10px;margin-right:10px;height:95%">
-		<h3>OCTAVOS DE FINAL</h3>
+		<h3 style="">OCTAVOS DE FINAL</h3>
 
 		{%for match in partidos%}
 				{%if match.Instancia == 'Octavos'%}
 
+				<h4>{{match.Dia}}</h4>
 				<tr>
 
-					<td>{{match.Dia}}</td>
+
 					<td>{{match.Horario}}</td>
 					{%for eqs in equiposCopaLib%}
 
@@ -1462,10 +1527,11 @@
 			{%for match in partidos%}
 				{%if match.Instancia == 'Cuartos'%}
 
+				<h4>{{match.Dia}}</h4>
 
 				<tr>
 
-					<td>{{match.Dia}}</td>
+
 					<td>{{match.Horario}}</td>
 					{%for eqs in equiposCopaLib%}
 
@@ -1522,10 +1588,11 @@
 			{%for match in partidos%}
 				{%if match.Instancia == 'Semi'%}
 
+				<h4>{{match.Dia}}</h4>
 
 				<tr>
 
-					<td>{{match.Dia}}</td>
+
 					<td>{{match.Horario}}</td>
 					{%for eqs in equiposCopaLib%}
 
@@ -1583,9 +1650,10 @@
 			{%for match in partidos%}
 			{%if match.Instancia == 'Final'%}
 
+				<h4>{{match.Dia}}</h4>
 				<tr>
 
-					<td>{{match.Dia}}</td>
+
 					<td>{{match.Horario}}</td>
 					{%for eqs in equiposCopaLib%}
 

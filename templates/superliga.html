@@ -7,7 +7,8 @@
 
 		table {
     		border-collapse: collapse;
-    		width: 30%;
+    		width: 100%;
+
 		}
 
 		td, th {
@@ -15,11 +16,50 @@
     		padding: 8px;
 		}
 
+		div{
+
+			float:left;
+			width:45%;
+			padding:10px;
+    		margin:10px;
+
+		}
+
+
 		th {
     		background-color: #4CAF50;
     		color: white;
 		}
 		tr:nth-child(even){background-color: #f2f2f2}
+
+		ul {
+			list-style-type: none;
+			margin-left: 10px;
+			padding-left: 10px;
+			overflow: hidden;
+			background-color: #333;
+		}
+
+		li {
+			float: left;
+		}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		li a:hover:not(.active) {
+			background-color: #111;
+		}
+
+		.active {
+			background-color: #4CAF50;
+		}
+
 
 
 
@@ -32,49 +72,56 @@
 
 <body>
 
+<ul>
+  <li><a class="active">SUPERLIGA</a></li>
+  <li><a  href="/">Home</a></li>
+  <li><a href="/superliga">Superliga</a></li>
+  <li><a href="/libertadores">Libertadores</a></li>
+
+</ul>
+
 <div>
 
-<h3>
-	SUPERLIGA ARGENTINA
-
-</h3>
-
-<table>
-
-<tr>
-
-  	<th><strong>Equipos</strong></th>
-  	<th><strong>Ptos</strong></th>
-	<th><strong>PJ</strong></th>
-	<th><strong>PG</strong></th>
-	<th><strong>PP</strong></th>
-	<th><strong>PE</strong></th>
-	<th><strong>GF</strong></th>
-	<th><strong>GC</strong></th>
-	<th><strong>DG</strong></th>
-
-</tr>
-
-{% for item in equiposSuperliga: %}
 
 
-<tr>
+	<table>
 
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
-</tr>
+		<h3 style="float:center;">Tabla de Posiciones</h3>
+
+		<tr>
+
+			<th><strong>Equipos</strong></th>
+			<th><strong>Ptos</strong></th>
+			<th><strong>PJ</strong></th>
+			<th><strong>PG</strong></th>
+			<th><strong>PP</strong></th>
+			<th><strong>PE</strong></th>
+			<th><strong>GF</strong></th>
+			<th><strong>GC</strong></th>
+			<th><strong>DG</strong></th>
+
+		</tr>
+
+		{% for item in equiposSuperliga: %}
 
 
-{% endfor %}
+		<tr>
 
-</table>
+				<td> {{ item["Nombre"] }}</td>
+				<td> {{ item["Puntos"] }}</td>
+				<td> {{ item["PartidosJugados"] }}</td>
+				<td> {{ item["Ganados"] }}</td>
+				<td> {{ item["Perdidos"] }}</td>
+				<td> {{ item["Empatados"] }}</td>
+				<td> {{ item["GolesAFavor"] }}</td>
+				<td> {{ item["GolesEnContra"] }}</td>
+				<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+		</tr>
+
+
+		{% endfor %}
+
+	</table>
 
 </div>
 
@@ -82,25 +129,25 @@
 
 <form method="post" action='/superliga'>
 
-	<h3>Fixture<br>Fecha
+	<h3 style="float:center;">Fixture</h3>
 
+		<h4>Fecha
+			<select name="nroFecha">
+				{%for item in fechas:%}
 
-		<select name="nroFecha">
-			{%for item in fechas:%}
+					{%if item.NroFecha == nroF%}
 
-				{%if item.NroFecha == nroF%}
+						<option value="{{item.NroFecha}}" selected>{{item.NroFecha}}</option>
 
-					<option value="{{item.NroFecha}}" selected>{{item.NroFecha}}</option>
+					{%else%}
 
-				{%else%}
+						<option value="{{item.NroFecha}}" >{{item.NroFecha}}</option>
 
-					<option value="{{item.NroFecha}}" >{{item.NroFecha}}</option>
-
-				{%endif%}
-			{%endfor%}
-		</select>
-		<input type="submit" name="submit" value="Ver Fecha">
-	</h3>
+					{%endif%}
+				{%endfor%}
+			</select>
+			<input type="submit" name="submit" value="Ver Fecha">
+		</h4>
 
 </form>
 
@@ -182,14 +229,6 @@
 		{%endfor%}
 
 	</table>
-
-</div>
-
-
-
-<div>
-
-	<a href="/">Volver al Menu</a>
 
 </div>
 
