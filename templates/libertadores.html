@@ -249,7 +249,7 @@
 	<div><h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3></div>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in A%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -275,23 +275,23 @@
 								{%endif%}
 
 							{%endfor%}
-
+						<br>
 						{%endif%}
 
 				{%endfor%}
 		</tr>
-	<br>
+
 	{%endif%}
 	{%endfor%}
-
 
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado"%}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase"%}
 
 				<tr>
 					{%for eq in A%}
+
 						{%if match.idEquipo1 == eq.idEquipo%}
 
 							{%for eq1 in A%}
@@ -315,13 +315,12 @@
 								{%endif%}
 
 							{%endfor%}
-
+						<br>
 						{%endif%}
 
 				{%endfor%}
 				</tr>
 
-			<br>
 		{%endif%}
 	{%endfor%}
 
@@ -387,16 +386,15 @@
 	<tr>
 
 
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
-
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 	</tr>
 
@@ -415,7 +413,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in B%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -454,7 +452,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in B%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -550,16 +548,15 @@
 	<tr>
 
 
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
-
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 	</tr>
 
@@ -578,7 +575,7 @@
 <h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in C%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -617,7 +614,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado" and match.Instancias == "Fase" %}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase" %}
 		<tr>
 					{%for eq in C%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -710,17 +707,15 @@
 
 	<tr>
 
-
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
-
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 	</tr>
 
@@ -739,7 +734,7 @@
 <h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in D%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -778,7 +773,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in D%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -869,16 +864,15 @@
 	<tr>
 
 
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
-
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 	</tr>
 
@@ -897,7 +891,7 @@
 <h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in E%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -936,7 +930,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in E%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -1027,17 +1021,15 @@
 
 	<tr>
 
-
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
-
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 	</tr>
 
@@ -1056,7 +1048,7 @@
 <h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in F%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -1095,7 +1087,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in F%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -1192,16 +1184,15 @@
 	<tr>
 
 
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
-
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 	</tr>
 
@@ -1219,7 +1210,7 @@
 <h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in G%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -1258,7 +1249,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in G%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -1351,16 +1342,15 @@
 
 	<tr>
 
-
-		<td> {{ item["Nombre"] }}</td>
-	    <td> {{ item["Puntos"] }}</td>
-		<td> {{ item["PartidosJugados"] }}</td>
-		<td> {{ item["Ganados"] }}</td>
-		<td> {{ item["Perdidos"] }}</td>
-		<td> {{ item["Empatados"] }}</td>
-		<td> {{ item["GolesAFavor"] }}</td>
-		<td> {{ item["GolesEnContra"] }}</td>
-		<td> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Nombre"] }}</td>
+	    <td bgcolor="#ffffff"> {{ item["Puntos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["PartidosJugados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Ganados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Perdidos"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["Empatados"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesEnContra"] }}</td>
+		<td bgcolor="#ffffff"> {{ item["GolesAFavor"] - item["GolesEnContra"] }}</td>
 
 
 	</tr>
@@ -1380,7 +1370,7 @@
 <h3 align="center" style="width:100%;background-color: seagreen;">Partidos Jugados</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario == "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario == "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in H%}
 						{%if match.idEquipo1 == eq.idEquipo%}
@@ -1419,7 +1409,7 @@
 	<h3 align="center" style="width:100%;background-color: seagreen;">Proximos Partidos</h3>
 
 	{%for match in partidos%}
-		{%if match.Horario != "Finalizado" and match.Instancias == "Fase"%}
+		{%if match.Horario != "Finalizado" and match.Instancia == "Fase"%}
 		<tr>
 					{%for eq in H%}
 						{%if match.idEquipo1 == eq.idEquipo%}

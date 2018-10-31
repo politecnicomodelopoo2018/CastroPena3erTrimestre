@@ -86,10 +86,18 @@ class Partido(object):
 
             self.Horario = "Finalizado"
 
+        if self.Instancia == "Null":
 
-        cursor = BD().run("insert into Partido (idPartidos, idEquipo1, idEquipo2, GolesEquipo1, GolesEquipo2, Liga_idLiga, Copa_idCopa, Instancia, NroFecha, Dia, Horario) values (null, '"+str(self.Equipo1)+"','"+str(self.Equipo2)+"', "+(self.GolesEquipo1)+","+(self.GolesEquipo2)+","+str(self.Liga)+", "+str(self.Copa)+",'"+self.Instancia+"', "+str(self.Fecha)+", '"+str(self.Dia)+"', '"+str(self.Horario)+"');")
+            cursor = BD().run("insert into Partido (idPartidos, idEquipo1, idEquipo2, GolesEquipo1, GolesEquipo2, Liga_idLiga, Copa_idCopa, Instancia, NroFecha, Dia, Horario) values (null, '" + str(self.Equipo1) + "','" + str(self.Equipo2) + "', " + (self.GolesEquipo1) + "," + (self.GolesEquipo2) + "," + str(self.Liga) + ", " + str(self.Copa) + "," + str(self.Instancia) + ", " + str(self.Fecha) + ", '" + str(self.Dia) + "', '" + str(self.Horario) + "');")
 
-        self.id = cursor.lastrowid
+            self.id = cursor.lastrowid
+
+        else:
+
+
+           cursor = BD().run("insert into Partido (idPartidos, idEquipo1, idEquipo2, GolesEquipo1, GolesEquipo2, Liga_idLiga, Copa_idCopa, Instancia, NroFecha, Dia, Horario) values (null, '" + str(self.Equipo1) + "','" + str(self.Equipo2) + "', " + (self.GolesEquipo1) + "," + (self.GolesEquipo2) + "," + str(self.Liga) + ", " + str(self.Copa) + ",'" + str(self.Instancia) + "', " + str(self.Fecha) + ", '" + str(self.Dia) + "', '" + str(self.Horario) + "');")
+
+           self.id = cursor.lastrowid
 
     def updatePartido(self):
 
@@ -107,11 +115,13 @@ class Partido(object):
 
             self.Copa = esCopa
 
+
         elif self.Liga is None:
 
             esLiga = "null"
 
             self.Liga = esLiga
+
         if self.Instancia is None:
 
             self.Instancia = "null"
@@ -120,10 +130,12 @@ class Partido(object):
 
             self.Horario= "Finalizado"
 
+        if self.Instancia == "Null":
 
+            BD().run("update Partido set idEquipo1 = '" + str(self.Equipo1) + "',idEquipo2 = '" + str(self.Equipo2) + "', GolesEquipo1 = " + self.GolesEquipo1 + ",GolesEquipo2 = " + self.GolesEquipo2 + ", Copa_idCopa = " + str(self.Copa) + ", Liga_idLiga = " + str(self.Liga) + ", NroFecha = " + str(self.Fecha) + ", Dia = '" + str(self.Dia) + "', Horario= '" + str(self.Horario) + "', Instancia = " + str(self.Instancia) + " where idPartidos = '" + str(self.id) + "';")
+        else:
 
-        BD().run("update Partido set idEquipo1 = '"+str(self.Equipo1)+"',idEquipo2 = '"+str(self.Equipo2)+"', GolesEquipo1 = "+self.GolesEquipo1+",GolesEquipo2 = "+self.GolesEquipo2+", Copa_idCopa = "+str(self.Copa)+", Liga_idLiga = "+str(self.Liga)+", NroFecha = "+str(self.Fecha)+", Dia = '"+str(self.Dia)+"', Horario= '"+str(self.Horario)+"', Instancia = '"+self.Instancia+"' where idPartidos = '"+str(self.id)+"';")
-
+            BD().run("update Partido set idEquipo1 = '" + str(self.Equipo1) + "',idEquipo2 = '" + str(self.Equipo2) + "', GolesEquipo1 = " + self.GolesEquipo1 + ",GolesEquipo2 = " + self.GolesEquipo2 + ", Copa_idCopa = " + str(self.Copa) + ", Liga_idLiga = " + str(self.Liga) + ", NroFecha = " + str(self.Fecha) + ", Dia = '" + str(self.Dia) + "', Horario= '" + str(self.Horario) + "', Instancia = '" + str(self.Instancia) + "' where idPartidos = '" + str(self.id) + "';")
     def deletePartido(self):
 
         #contadorProde = BD().run("select count(*) from Prode where Partido_idPartidos = '"+str(self.id)+"';")
